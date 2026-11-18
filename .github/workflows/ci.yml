@@ -1,0 +1,27 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      - name: Tests (offline, no optional extras)
+        run: pytest -q
+      - name: Catalog and JSON Schema are up to date
+        run: |
+          assayfold catalog --check
+          assayfold schema && git diff --exit-code schema/
+      - name: No large files committed
+        run: |
+          big=$(git ls-files -z | xargs -0 du -k | awk '$1 > 1024 {print $2}')
+          if [ -n "$big" ]; then echo "files over 1 MB: $big"; exit 1; fi

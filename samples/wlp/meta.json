@@ -1,0 +1,29 @@
+{
+  "n_records": 58,
+  "quality": {
+    "n_in": 58,
+    "n_out": 58,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-18T09:46:25Z",
+  "dataset": {
+    "id": "wlp",
+    "source_id": "wlp",
+    "name": "Wet Lab Protocols corpus (WLP)",
+    "version": "github master",
+    "url": "https://github.com/chaitanya2334/WLP-Dataset",
+    "license": "MIT",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-18T09:46:25Z",
+    "files": {
+      "LICENSE": "3f74de7aac2e2c4fcb52a97804641a9c5984373fd6db6cc37f41c37ec4a0276d",
+      "README.md": "9fe272bb02ae1bb9bedeb7b11a43777b91a4680260a6c74ea0940ea6b216c349",
+      "WLP-Dataset-master.zip": "4def585e362a9e1b8aabd68f5271aeb4fa5e357d9e3459d326d5d9a3843ffef7",
+      "train_protocol_100.ann": "b582e4c7456da9772dbe793e1fdbedc6d427dfe267a0a095b8d6288205f92b06",
+      "train_protocol_100.txt": "88f71e304a65af70c65fe23467f85ce1860401d7fd9a15ce27d29948b31e2713"
+    }
+  },
+  "command": "assayfold sample wlp --limit 3"
+}

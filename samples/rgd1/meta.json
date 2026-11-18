@@ -1,0 +1,25 @@
+{
+  "n_records": 20,
+  "quality": {
+    "n_in": 20,
+    "n_out": 20,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-18T09:49:28Z",
+  "dataset": {
+    "id": "rgd1-chno",
+    "source_id": "rgd1",
+    "name": "RGD1 reaction database (CHNO)",
+    "version": "figshare doi:10.6084/m9.figshare.21066901.v9",
+    "url": "https://doi.org/10.6084/m9.figshare.21066901",
+    "license": "CC-BY-4.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-18T09:49:28Z",
+    "files": {
+      "DFT_reaction_info.csv": "5ee39ea2c98bae068b56f352366c99c03f019961595696bf1af61dbd83ac9e4e"
+    }
+  },
+  "command": "assayfold sample rgd1 --limit 20"
+}

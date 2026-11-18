@@ -1,0 +1,24 @@
+id: labpics
+name: LabPics (Medical) vessel and material segmentation
+homepage: https://doi.org/10.5281/zenodo.4736111
+license: MIT
+license_url: https://opensource.org/license/mit
+license_evidence: https://zenodo.org/api/records/4736111
+license_quote: 'Zenodo record metadata: license id "mit-license" (record "LabPics dataset for visual understanding of Medical and Chemistry Labs")'
+license_checked: "2026-11-18"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Eppel, S., Xu, H., Bismuth, M., Aspuru-Guzik, A. Computer Vision for Recognition of
+  Materials and Vessels in Chemistry Lab Settings and the Vector-LabPics Data Set.
+  ACS Central Science 6, 1743-1752 (2020). doi:10.1021/acscentsci.0c00460 ;
+  data: Eppel, S., Xu, H., Aspuru-Guzik, A., Bismuth, M. (2021) doi:10.5281/zenodo.4736111
+modalities: [image, segmentation]
+kinds: [image]
+access: download
+size_full: "LabPicsMedical.zip 280,823,957 bytes; LabPicsChemistry.zip 3,917,445,796 bytes (Zenodo)"
+status: integrated
+notes: >-
+  Image bytes are not committed; records carry sha256 BlobRefs and instance annotations
+  (vessel, liquid, solid, foam, parts, relations). fetch() reads only selected ZIP members
+  with HTTP range requests. LabPicsChemistry uses the same layout.

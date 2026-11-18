@@ -1,0 +1,24 @@
+id: ord
+name: Open Reaction Database (ORD)
+homepage: https://open-reaction-database.org
+license: CC-BY-SA-4.0
+license_url: https://creativecommons.org/licenses/by-sa/4.0/
+license_evidence: https://github.com/open-reaction-database/ord-data#license
+license_quote: >-
+  "The datasets under data/ (and the repository metadata describing them) | CC-BY-SA-4.0";
+  code under scripts/ is Apache-2.0. HF mirror metadata: "license: cc-by-sa-4.0".
+license_checked: "2026-11-18"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Kearnes, S. M. et al. The Open Reaction Database. J. Am. Chem. Soc. 143, 18820-18826 (2021).
+  doi:10.1021/jacs.1c09820. Data: https://github.com/open-reaction-database/ord-data
+modalities: [reaction, conditions, outcome]
+kinds: [reaction]
+access: huggingface
+size_full: "one Parquet file per dataset (Git LFS, mirrored on Hugging Face); default sample file 19,867 bytes, 96 reactions"
+status: integrated
+notes: >-
+  Share-alike: converted ORD records keep CC-BY-SA-4.0. Needs `pip install ord-schema`
+  (Apache-2.0) to decode reactions. The default dataset is a Suzuki-Miyaura coupling
+  optimization set (96 reactions); add more dataset ids in connectors/ord.py.

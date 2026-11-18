@@ -1,0 +1,23 @@
+{
+  "n_records": 12,
+  "quality": {
+    "n_in": 12,
+    "n_out": 12,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-18T09:53:00Z",
+  "dataset": {
+    "id": "labpics-medical",
+    "source_id": "labpics",
+    "name": "LabPics (Medical) vessel and material segmentation",
+    "version": "Zenodo record 4736111 (LabPicsMedical.zip)",
+    "url": "https://doi.org/10.5281/zenodo.4736111",
+    "license": "MIT",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-18T09:53:00Z",
+    "files": {}
+  },
+  "command": "assayfold sample labpics --limit 12"
+}

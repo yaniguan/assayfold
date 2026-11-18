@@ -1,0 +1,75 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "fetched_utc": {
+      "title": "Fetched Utc",
+      "type": "string"
+    },
+    "files": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "default": {},
+      "title": "Files",
+      "type": "object"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "license": {
+      "title": "License",
+      "type": "string"
+    },
+    "n_records_total": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "N Records Total"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "size_bytes_total": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Size Bytes Total"
+    },
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "url": {
+      "title": "Url",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "source_id",
+    "name",
+    "version",
+    "url",
+    "license"
+  ],
+  "title": "Dataset",
+  "type": "object"
+}

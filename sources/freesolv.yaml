@@ -1,0 +1,23 @@
+id: freesolv
+name: FreeSolv hydration free energies
+homepage: https://github.com/MobleyLab/FreeSolv
+license: CC-BY-4.0
+license_url: https://creativecommons.org/licenses/by/4.0/
+license_evidence: https://github.com/MobleyLab/FreeSolv/blob/master/README.md#license
+license_quote: >-
+  "the data here is covered by the enclosed LICENSE file, specifying CC-BY 4.0, and the code
+  covered by LICENSE_code, an MIT license." The README adds that data derived from other
+  sources may carry original licensing restrictions.
+license_checked: "2026-11-18"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Mobley, D. L. (2013). Experimental and Calculated Small Molecule Hydration Free Energies.
+  UC Irvine. http://www.escholarship.org/uc/item/6sd403pz ; Duarte Ramos Matos, G. et al.,
+  J. Chem. Eng. Data 62, 1559-1569 (2017), doi:10.1021/acs.jced.7b00104
+modalities: [molecule, property]
+kinds: [molecule]
+access: github
+size_full: "642 molecules (database.json)"
+status: integrated
+notes: Experimental and GAFF-calculated hydration free energies in kcal/mol, with uncertainties.

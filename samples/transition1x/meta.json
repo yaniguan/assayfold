@@ -1,0 +1,25 @@
+{
+  "n_records": 20,
+  "quality": {
+    "n_in": 20,
+    "n_out": 20,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-18T09:54:01Z",
+  "dataset": {
+    "id": "transition1x-test",
+    "source_id": "transition1x",
+    "name": "Transition1x reaction-pathway DFT data",
+    "version": "ColabFit DS_zzfaosyakwom_0 (HF colabfit/Transition1x-test)",
+    "url": "https://doi.org/10.6084/m9.figshare.19614657.v4",
+    "license": "MIT",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-18T09:54:01Z",
+    "files": {
+      "rows.jsonl": "7ff0b401d1eb4c5c7583ee32c3d7ce7f8c7fbc304e1e1c828297d070cfd75530"
+    }
+  },
+  "command": "assayfold sample transition1x --limit 20"
+}

@@ -1,0 +1,22 @@
+id: bioprobench
+name: BioProBench
+homepage: https://huggingface.co/datasets/BioProBench/BioProBench
+license: CC-BY-NC-4.0
+license_url: https://creativecommons.org/licenses/by-nc/4.0/
+license_evidence: https://github.com/YuyangSunshine/bioprobench
+license_quote: 'README badge "License: CC BY-NC 4.0"; HF dataset metadata "license: cc-by-nc-4.0"'
+license_checked: "2026-11-18"
+commercial_use_ok: false
+redistribution_ok: true
+attribution: >-
+  Liu, Y., Lv, L., Zhang, X., Wang, J., Yuan, L., Tian, Y. BioProBench: A Corpus and Benchmark
+  for Biological Protocol Reasoning in Autonomous Science. ICML 2026. arXiv:2505.07889.
+modalities: [text, protocol, qa]
+kinds: [qa_item]
+access: huggingface
+size_full: "test files: PQA 1,200, ORD 1,161, ERR 1,200, GEN 772 items; all JSON files ~783 MB (HF file list)"
+status: fetch_only
+notes: >-
+  NON-COMMERCIAL. Never committed to this repo and blocked for train_commercial exports.
+  Test splits are tagged eval_only. Tasks: PQA (protocol QA), ORD (step ordering),
+  ERR (error correction), GEN (protocol generation).

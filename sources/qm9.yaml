@@ -1,0 +1,27 @@
+id: qm9
+name: QM9 (134k molecules, DFT properties and 3D structures)
+homepage: https://doi.org/10.1038/sdata.2014.22
+license: CC0-1.0
+license_url: https://creativecommons.org/publicdomain/zero/1.0/
+license_evidence: https://jla-gardner.github.io/load-atoms/datasets/QM9.html
+license_quote: >-
+  load-atoms dataset entry for QM9 (files from figshare collection 978904): "This dataset is
+  licensed under the CC0 license." The figshare collection page itself returned HTTP 403 to
+  our network on 2026-11-18, so re-check it at https://figshare.com/collections/_/978904.
+license_checked: "2026-11-18"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Ramakrishnan, R., Dral, P. O., Rupp, M., von Lilienfeld, O. A. Quantum chemistry structures
+  and properties of 134 kilo molecules. Scientific Data 1, 140022 (2014).
+  doi:10.1038/sdata.2014.22
+modalities: [structure, property]
+kinds: [structure]
+access: download
+size_full: "133,885 molecules; mirror gdb9.tar.gz is 44,852,087 bytes"
+status: integrated
+notes: >-
+  Computed data (origin=simulated), B3LYP/6-31G(2df,p). Read from the MoleculeNet mirror
+  (gdb9.sdf + gdb9.sdf.csv); SDF coordinates have 4 decimals, the original xyz files have
+  more. Energies in Hartree ([Eh]), mu in debye, alpha in bohr^3, r2 in bohr^2, cv in
+  cal/(mol K), rotational constants in GHz.

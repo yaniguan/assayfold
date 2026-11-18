@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assayfold"
+version = "0.1.0"
+description = "Every open lab dataset, one schema: licensed, traced, ready for training and RAG."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Yani Guan"}]
+dependencies = ["pydantic>=2", "pandas", "pyarrow", "pyyaml", "requests"]
+
+[project.optional-dependencies]
+chem = ["rdkit"]
+hdf5 = ["h5py"]
+ord = ["ord-schema"]
+all = ["rdkit", "h5py", "ord-schema", "py7zr"]
+dev = ["pytest"]
+
+[project.scripts]
+assayfold = "assayfold.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["assayfold*"]

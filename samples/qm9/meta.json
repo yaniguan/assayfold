@@ -1,0 +1,27 @@
+{
+  "n_records": 20,
+  "quality": {
+    "n_in": 20,
+    "n_out": 20,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-18T09:56:19Z",
+  "dataset": {
+    "id": "qm9",
+    "source_id": "qm9",
+    "name": "QM9 (134k molecules, DFT properties and 3D structures)",
+    "version": "MoleculeNet mirror gdb9.tar.gz (QM9 v5 collection)",
+    "url": "https://doi.org/10.6084/m9.figshare.c.978904.v5",
+    "license": "CC0-1.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-18T09:56:19Z",
+    "files": {
+      "gdb9.sdf": "98c4e97d50ac549b8c9f0b2114b348a9a944718e17e50d9a724b729f1deaa28e",
+      "gdb9.sdf.csv": "73a67793e3cfa9660f001278bd019c143f57e4785db537a01811cf2ce72aa7eb",
+      "gdb9.tar.gz": "45255048ac6d83ea4b923ecdf7d6fb6dc62bfec5e80fbc5bcfd93a62157a31db"
+    }
+  },
+  "command": "assayfold sample qm9 --limit 20"
+}

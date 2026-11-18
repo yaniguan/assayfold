@@ -1,0 +1,25 @@
+{
+  "n_records": 25,
+  "quality": {
+    "n_in": 25,
+    "n_out": 25,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-18T09:44:44Z",
+  "dataset": {
+    "id": "freesolv",
+    "source_id": "freesolv",
+    "name": "FreeSolv hydration free energies",
+    "version": "github master database.json",
+    "url": "https://github.com/MobleyLab/FreeSolv",
+    "license": "CC-BY-4.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-18T09:44:44Z",
+    "files": {
+      "database.json": "9133b2438af6081d4cf6ac040cb201c2e3ec953988a45248586f20f2f159c78a"
+    }
+  },
+  "command": "assayfold sample freesolv --limit 25"
+}

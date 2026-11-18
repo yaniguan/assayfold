@@ -1,0 +1,28 @@
+{
+  "n_records": 10,
+  "quality": {
+    "n_in": 10,
+    "n_out": 10,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-18T09:58:29Z",
+  "dataset": {
+    "id": "ord",
+    "source_id": "ord",
+    "name": "Open Reaction Database (ORD)",
+    "version": "HF open-reaction-database/ord-data main",
+    "url": "https://github.com/open-reaction-database/ord-data",
+    "license": "CC-BY-SA-4.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-18T09:58:29Z",
+    "files": {
+      "ord_dataset-10b940e7982c4622b1e1ac879394aba6.parquet": "f873aa352781edfef742a1e14e46e8d6c960bb7f5c9e47e7397ca2d6af1901ca",
+      "ord_dataset-2038a3c967db4a32a8fbce288437e929.parquet": "b39bef5ae4dde86bf0116933c35fc0968a2e492195dcade85d303544053cf7d6",
+      "ord_dataset-31989f1b2b9d4885b1dd2d9982da4517.parquet": "7e7a7e94d884210e7ba9062a91a1b8161181519ad0ecf2a4cd3e773d82087aa6",
+      "ord_dataset-3b5db90e337942ea886b8f5bc5e3aa72.parquet": "3da99773dd237932accd6f47784b49576ba8e9ae865ee9bf7384ee817ab49d9f"
+    }
+  },
+  "command": "assayfold sample ord --limit 10"
+}

@@ -1,0 +1,22 @@
+id: wlp
+name: Wet Lab Protocols corpus (WLP)
+homepage: https://github.com/chaitanya2334/WLP-Dataset
+license: MIT
+license_url: https://github.com/chaitanya2334/WLP-Dataset/blob/master/LICENSE
+license_evidence: https://github.com/chaitanya2334/WLP-Dataset/blob/master/LICENSE
+license_quote: 'Repository LICENSE: "MIT License, Copyright (c) 2018 chaitanya2334"'
+license_checked: "2026-11-18"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Kulkarni, C., Xu, W., Ritter, A., Machiraju, R. An Annotated Corpus for Machine Reading of
+  Instructions in Wet Lab Protocols. NAACL-HLT 2018. arXiv:1805.00195.
+modalities: [text, protocol, annotation]
+kinds: [protocol, protocol_step]
+access: github
+size_full: "622 annotated protocols (README)"
+status: integrated
+notes: >-
+  The protocol texts were collected from protocols.io public protocols (README); the repo
+  license is MIT. Each line becomes a protocol_step with brat entity spans (Action, Reagent,
+  Amount, Temperature, ...).

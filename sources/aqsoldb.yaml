@@ -1,0 +1,20 @@
+id: aqsoldb
+name: AqSolDB
+homepage: https://doi.org/10.7910/DVN/OVHAW8
+license: CC0-1.0
+license_url: https://creativecommons.org/publicdomain/zero/1.0/
+license_evidence: https://dataverse.harvard.edu/api/datasets/:persistentId/?persistentId=doi:10.7910/DVN/OVHAW8
+license_quote: 'Dataverse metadata: license name "CC0 1.0", rightsIdentifier "CC0-1.0"'
+license_checked: "2026-11-18"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Sorkun, M. C., Khetan, A., Er, S. AqSolDB, a curated reference set of aqueous
+  solubility and 2D descriptors for a diverse set of compounds. Scientific Data 6, 143 (2019).
+  doi:10.1038/s41597-019-0151-1. Data: doi:10.7910/DVN/OVHAW8
+modalities: [molecule, property]
+kinds: [molecule]
+access: download
+size_full: "3.8 MB (curated-solubility-dataset.tab, 3,844,092 bytes per Dataverse)"
+status: integrated
+notes: Solubility is LogS with S in mol/L. SD is the standard deviation over merged sources.

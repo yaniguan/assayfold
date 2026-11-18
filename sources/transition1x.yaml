@@ -1,0 +1,26 @@
+id: transition1x
+name: Transition1x reaction-pathway DFT data
+homepage: https://doi.org/10.1038/s41597-022-01870-w
+license: MIT
+license_url: https://opensource.org/license/mit
+license_evidence: https://huggingface.co/datasets/colabfit/Transition1x-test
+license_quote: >-
+  ColabFit dataset card: "License MIT" and "Original data link
+  https://doi.org/10.6084/m9.figshare.19614657.v4". The figshare page returned HTTP 403 to
+  our network on 2026-11-18; re-check the license there.
+license_checked: "2026-11-18"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Schreiner, M., Bhowmik, A., Vegge, T., Busk, J., Winther, O. Transition1x - a dataset for
+  building generalizable reactive machine learning potentials. Scientific Data 9, 779 (2022).
+  doi:10.1038/s41597-022-01870-w ; ColabFit copy doi:10.60732/f26a9f60
+modalities: [structure, energy, forces, reaction_path]
+kinds: [structure]
+access: huggingface
+size_full: "9.6 million DFT calculations (card); test split 190,261 configurations, co_0.parquet 146 MB"
+status: integrated
+notes: >-
+  Computed data (origin=simulated), wB97x/6-31G(d) in ORCA 5.0.2. Energies in eV and forces
+  in eV/Angstrom (ColabFit units). Each record is one configuration along a reaction path,
+  tagged with its reaction id. Train and validation splits use the same layout.

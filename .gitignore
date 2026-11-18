@@ -1,0 +1,12 @@
+venv/
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+data/
+out/
+*.parquet
+!samples/**/*.parquet
+*.7z
+*.zip
+*.h5

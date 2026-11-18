@@ -1,0 +1,25 @@
+{
+  "n_records": 25,
+  "quality": {
+    "n_in": 25,
+    "n_out": 25,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-18T09:44:43Z",
+  "dataset": {
+    "id": "aqsoldb-curated",
+    "source_id": "aqsoldb",
+    "name": "AqSolDB",
+    "version": "Dataverse doi:10.7910/DVN/OVHAW8 (curated-solubility-dataset)",
+    "url": "https://doi.org/10.7910/DVN/OVHAW8",
+    "license": "CC0-1.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-18T09:44:43Z",
+    "files": {
+      "curated-solubility-dataset.csv": "7c47e021d03a5720f53cfddb7aef90c8911ea276a36306c839798733d8630332"
+    }
+  },
+  "command": "assayfold sample aqsoldb --limit 25"
+}
