@@ -71,25 +71,35 @@ data); **planned** = converter written and unit-tested, not yet run on the live 
 ## Quality checks
 
 `assayfold check` and every `sample`/`export` run the same checks, and report each failure
-with a record id and reason. Nothing is dropped silently.
+with a record id and reason. RGD1 reports how many malformed rows it skipped; a truncated
+last line at EOF is allowed, other dropped rows are counted.
 
 - **Schema validation**: pydantic models with `extra="forbid"`; the JSON Schema is in [schema/](schema).
 - **Unit normalization**: raw unit strings map to UCUM-style codes (`uL`, `Cel`, `kcal/mol`,
   `Ao`, `[Eh]` for Hartree); the original string is kept in `raw_unit_str`; unknown units fail.
 - **Chemistry sanity**: SMILES parse (RDKit when installed), finite coordinates, atom/coordinate counts.
 - **Dedup**: by content hash, and by canonical SMILES for molecules within a source.
-- **Integrity**: `record_hash` must match the content.
-- **License gate**: unknown or missing licenses are blocked; non-commercial data is blocked
-  for `train_commercial` and never committed; benchmark items (`eval_only` tag) never enter
-  a training export.
+- **Integrity**: `record_hash` is checked on the record as loaded, before unit normalization
+  reseals it.
+- **License gate**: each record's `source_id` must exist in `sources/<id>.yaml`, and its
+  license must match that source file. The per-record license string alone is not trusted.
+  Non-commercial data is blocked for `train_commercial` and for `rag` (an index that may
+  serve a commercial product). It is allowed for `rag_research`, with a research-use-only
+  note. Benchmark items (`eval_only` tag) never enter a training export.
 
 ## License policy
 
 - Code: MIT ([LICENSE](LICENSE)).
 - Data keeps its own license, recorded per source with the URL where it was checked and a
   quote. Share-alike sources (ORD, LAB-Bench) require the same license on derived data.
+- Committed files under `samples/` are not under the MIT license of the code. Each folder
+  has a `NOTICE.md` with the source name, license, evidence URL and attribution.
 - Only small samples of redistributable, commercial-use-allowed data are committed.
-  Full data is always fetched by script from the official location.
+  Full data is fetched by script from the official location or a named mirror listed in
+  the source YAML.
+- A limited or interrupted download is stored under a distinct name (not the published
+  filename) and is not reused as the full file. `files` hashes in `meta.json` are of the
+  files the converter actually read.
 - This is an engineering guard, not legal advice. Re-check a license before you rely on it.
 
 ## Adding a source
