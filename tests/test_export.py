@@ -4,12 +4,16 @@ import pandas as pd
 
 from assayfold.export import export_jsonl, export_parquet, export_rag_chunks
 from assayfold.io import read_jsonl
+from assayfold.quality import normalize_units
 
 
 def test_jsonl_round_trip(tmp_path, mol, rxn):
     card = export_jsonl([mol, rxn], tmp_path / "out.jsonl")
     back = list(read_jsonl(tmp_path / "out.jsonl"))
-    assert [r.record_hash for r in back] == [mol.record_hash, rxn.record_hash]
+    expected_rxn = normalize_units(rxn.model_copy(deep=True))
+    assert [r.record_hash for r in back] == [mol.record_hash, expected_rxn.record_hash]
+    assert rxn.payload.conditions["temperature"].unit == "degC"
+    assert back[1].payload.conditions["temperature"].unit == "Cel"
     assert card["n_records"] == 2 and (tmp_path / "out.jsonl.card.json").exists()
 
 
