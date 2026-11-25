@@ -49,3 +49,10 @@ def test_tampered_hash_flagged(mol):
     d = mol.model_dump(mode="json")
     d["text"] = "edited after hashing"
     assert "record_hash mismatch" in quality.validate(d)
+
+def test_tampered_hash_flagged_in_run_all(mol):
+    """Integrity must fail in run_all, not only in validate(), even after unit normalization."""
+    d = mol.model_dump(mode="json")
+    d["text"] = "edited after hashing"
+    kept, rep = quality.run_all([d])
+    assert not kept and rep.counts["record_hash mismatch"] == 1

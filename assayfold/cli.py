@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import catalog, connectors, licenses, quality
+from . import catalog, connectors, licenses, notice, quality
 from .export import export_jsonl, export_parquet, export_rag_chunks
 from .io import read_jsonl, write_jsonl
 from .schema import Dataset, export_json_schema, utc_now
@@ -48,8 +48,11 @@ def cmd_sample(a):
                  files=c.files_sha256())
     meta = {"n_records": len(recs), "quality": report.summary(), "created_utc": utc_now(),
             "dataset": ds.model_dump(mode="json"),
+            "partial_read": c.is_partial(),
+            "converter_skipped_rows": c.skipped_rows,
             "command": f"assayfold sample {a.id} --limit {a.limit}"}
     (d / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
+    (d / "NOTICE.md").write_text(notice.notice_text(c.source))
     print(json.dumps(meta["quality"]))
 
 
@@ -65,11 +68,13 @@ def cmd_check(a):
 
 
 def cmd_export(a):
-    recs = [r for p in a.files for r in read_jsonl(p)]
+    # dicts, so quality.run_all checks record_hash on the records exactly as stored
+    recs = [r for p in a.files for r in read_jsonl(p, as_dict=True)]
+    purpose = a.purpose or ("rag" if a.format == "rag" else "train_research")
     homepages = {s.id: s.homepage for s in catalog.load_sources()}
     fn = {"jsonl": export_jsonl, "parquet": export_parquet}.get(a.format)
-    card = (export_rag_chunks(recs, a.out, a.purpose, homepages) if a.format == "rag"
-            else fn(recs, a.out, a.purpose))
+    card = (export_rag_chunks(recs, a.out, purpose, homepages) if a.format == "rag"
+            else fn(recs, a.out, purpose))
     print(json.dumps(card, indent=2))
 
 
@@ -106,7 +111,8 @@ def main(argv=None):
     p = sub.add_parser("export")
     p.add_argument("files", nargs="+")
     p.add_argument("--format", choices=["jsonl", "parquet", "rag"], default="jsonl")
-    p.add_argument("--purpose", default="train_research", choices=licenses.PURPOSES)
+    p.add_argument("--purpose", choices=licenses.PURPOSES,
+                   help="default: rag for --format rag, otherwise train_research")
     p.add_argument("--out", required=True)
     p.set_defaults(fn=cmd_export)
     p = sub.add_parser("catalog")

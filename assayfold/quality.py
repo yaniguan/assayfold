@@ -121,15 +121,20 @@ def dedup_key(rec: Record) -> str:
 
 
 def run_all(records, purpose: str = "train_research"):
-    """Validate, normalize, gate and dedup. Returns (kept_records, QualityReport)."""
+    """Check integrity, validate, normalize, gate and dedup. Returns (kept_records, QualityReport)."""
     report, kept, seen = QualityReport(), [], {}
     for raw in records:
         report.n_in += 1
         rid = raw.get("record_id") if isinstance(raw, dict) else raw.record_id
         try:
-            rec = Record.model_validate(raw) if isinstance(raw, dict) else raw
+            # copy Records so normalize_units does not change the caller's objects
+            rec = Record.model_validate(raw) if isinstance(raw, dict) else raw.model_copy(deep=True)
         except ValidationError as e:
             report.fail(rid, "schema", e.errors()[0]["msg"])
+            continue
+        # Integrity is checked on the record as loaded; normalize_units re-seals it below.
+        if rec.record_hash and rec.record_hash != rec.content_hash():
+            report.fail(rid, "record_hash mismatch", "record_hash mismatch: content changed after hashing")
             continue
         rec = normalize_units(rec)
         problems = validate(rec)
@@ -139,7 +144,7 @@ def run_all(records, purpose: str = "train_research"):
             continue
         ok, why = licenses.allowed(rec, purpose)
         if not ok:
-            report.fail(rid, "license", why)
+            report.fail(rid, "license", f"{rec.source_id}: {why}")
             continue
         key = dedup_key(rec)
         if key in seen:

@@ -1,7 +1,9 @@
 """Export unified records for training (JSONL, Parquet) and retrieval (RAG chunks).
 
-Every export runs the license gate for its purpose and writes a dataset card next to
-the output: sources, licenses, counts, and the sha256 of the output file.
+Every export runs the same checks as `assayfold check` and `sample` (quality.run_all:
+integrity, schema, units, SMILES, license gate for its purpose, dedup) and writes a
+dataset card next to the output: sources, licenses, counts, the quality summary, and the
+sha256 of the output file.
 """
 
 from __future__ import annotations
@@ -12,30 +14,39 @@ from pathlib import Path
 
 import pandas as pd
 
-from . import licenses
+from . import licenses, quality
 from .canonical import file_sha256
 from .io import write_jsonl
 from .schema import Record, utc_now
 
 
-def gate_records(records, purpose: str):
-    kept, blocked = [], Counter()
+def check_records(records, purpose: str):
+    """Run quality.run_all for `purpose`. Returns (kept, QualityReport, blocked-by-license)."""
+    kept, report = quality.run_all(records, purpose=purpose)
+    blocked = Counter(reason for _, check, reason in report.failures if check == "license")
+    return kept, report, blocked
+
+
+def _license_notes(records, purpose: str) -> dict:
+    """source_id -> gate note (share-alike, non-commercial research use) for kept records."""
+    notes = {}
     for r in records:
-        ok, why = licenses.allowed(r, purpose)
-        if ok:
-            kept.append(r)
-        else:
-            blocked[f"{r.source_id}: {why}"] += 1
-    return kept, blocked
+        if r.source_id not in notes:
+            why = licenses.gate(r.license, purpose)[1]
+            if why != "ok":
+                notes[r.source_id] = why
+    return notes
 
 
-def _card(path: Path, records, purpose: str, blocked: Counter, fmt: str) -> dict:
+def _card(path: Path, records, purpose: str, report, blocked: Counter, fmt: str) -> dict:
     card = {
         "file": path.name, "format": fmt, "purpose": purpose, "created_utc": utc_now(),
         "sha256": file_sha256(path), "n_records": len(records),
         "by_source": dict(Counter(r.source_id for r in records)),
         "licenses": dict(Counter(r.license for r in records)),
+        "license_notes": _license_notes(records, purpose),
         "by_kind": dict(Counter(r.kind for r in records)),
+        "quality": report.summary(),
         "blocked": dict(blocked),
         "note": "Each record keeps its source license. Share-alike sources require the "
                 "same license on derived data. Attribution text is in sources/<id>.yaml.",
@@ -45,9 +56,9 @@ def _card(path: Path, records, purpose: str, blocked: Counter, fmt: str) -> dict
 
 
 def export_jsonl(records, path, purpose: str = "train_research") -> dict:
-    kept, blocked = gate_records(records, purpose)
+    kept, report, blocked = check_records(records, purpose)
     write_jsonl(kept, path)
-    return _card(Path(path), kept, purpose, blocked, "jsonl")
+    return _card(Path(path), kept, purpose, report, blocked, "jsonl")
 
 
 def _flat_row(r: Record) -> dict:
@@ -65,10 +76,10 @@ def _flat_row(r: Record) -> dict:
 
 
 def export_parquet(records, path, purpose: str = "train_research") -> dict:
-    kept, blocked = gate_records(records, purpose)
+    kept, report, blocked = check_records(records, purpose)
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     pd.DataFrame([_flat_row(r) for r in kept]).to_parquet(path, index=False)
-    return _card(Path(path), kept, purpose, blocked, "parquet")
+    return _card(Path(path), kept, purpose, report, blocked, "parquet")
 
 
 def chunk_text(r: Record, homepage: str = "") -> str:
@@ -101,7 +112,7 @@ def chunk_text(r: Record, homepage: str = "") -> str:
 
 
 def export_rag_chunks(records, path, purpose: str = "rag", homepages: dict | None = None) -> dict:
-    kept, blocked = gate_records(records, purpose)
+    kept, report, blocked = check_records(records, purpose)
     homepages = homepages or {}
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w") as f:
@@ -109,4 +120,4 @@ def export_rag_chunks(records, path, purpose: str = "rag", homepages: dict | Non
             f.write(json.dumps({"id": r.record_id, "text": chunk_text(r, homepages.get(r.source_id, "")),
                                 "source_id": r.source_id, "license": r.license, "kind": r.kind,
                                 "parent_id": r.parent_id}) + "\n")
-    return _card(Path(path), kept, purpose, blocked, "rag-jsonl")
+    return _card(Path(path), kept, purpose, report, blocked, "rag-jsonl")
