@@ -2,8 +2,9 @@
 
 1. **Check the license first.** Open the official landing page (figshare, Zenodo,
    Dataverse, Hugging Face card, GitHub LICENSE or the paper's data statement). Record the
-   SPDX id, the URL you checked, a short quote and the date. If there is no clear license,
-   stop: the source cannot be added.
+   SPDX id (or an explicit `LicenseRef-<id>` entry in `assayfold/licenses.py` for custom
+   signed research-only agreements), the URL you checked, a short quote and the date. If
+   there is no clear license, stop: the source cannot be added.
 2. **Write `sources/<id>.yaml`.** Fill in every field of `Source` in `assayfold/schema.py`:
    homepage, license, evidence, attribution (real citation), modalities, kinds, size as
    stated by the source, and status (`planned` until the converter has run on real data).

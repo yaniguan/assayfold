@@ -104,6 +104,8 @@ def chunk_text(r: Record, homepage: str = "") -> str:
             lines.append("Choices: " + " | ".join(p.choices))
     elif p.kind == "observation":
         lines.append(f"{p.property} = {p.value.value} {p.value.unit}")
+    elif p.kind == "spectrum":
+        lines.append(f"Spectrum ({p.technique}): {len(p.x)} points, x in {p.x_unit}, y in {p.y_unit}")
     for k, q in sorted(r.properties.items()):
         lines.append(f"{k} = {q.value} {q.unit}")
     lines.append(f"Source: {r.source_id} | License: {r.license} | id: {r.record_id}"

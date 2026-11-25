@@ -1,0 +1,21 @@
+id: opxrd
+name: opXRD experimental powder X-ray diffraction
+homepage: https://doi.org/10.5281/zenodo.15298026
+license: CC-BY-4.0
+license_url: https://creativecommons.org/licenses/by/4.0/
+license_evidence: https://zenodo.org/api/records/15298026
+license_quote: 'Zenodo record 15298026 metadata: license id "cc-by-4.0"'
+license_checked: "2026-11-25"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  opXRD Consortium. opXRD: Open Experimental Powder X-ray Diffraction Database.
+  Zenodo (2025). doi:10.5281/zenodo.15298026
+modalities: [spectrum, xrd, crystal]
+kinds: [spectrum]
+access: download
+size_full: "92,565 experimental PXRD JSON patterns across 7 institutions (opxrd.zip, 1,400,997,733 bytes on Zenodo)"
+status: integrated
+notes: >-
+  Experimental powder X-ray diffractograms with 2-theta angles in deg, detector intensities
+  in {counts}, and X-ray source wavelengths in Ao, fetched selectively via HTTP range requests.

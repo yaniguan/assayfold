@@ -1,0 +1,23 @@
+id: chembench
+name: ChemBench chemistry knowledge and safety benchmark
+homepage: https://huggingface.co/datasets/jablonkagroup/ChemBench
+license: MIT
+license_url: https://opensource.org/licenses/MIT
+license_evidence: https://huggingface.co/api/datasets/jablonkagroup/ChemBench
+license_quote: 'HF cardData "license": ["mit"]; card notice "DO NOT USE THIS DATASET FOR TRAINING OR FINE-TUNING MODELS."'
+license_checked: "2026-11-25"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Mirza, A., Alampara, N., Kunchapu, S. et al. A framework for evaluating the chemical
+  knowledge and reasoning abilities of large language models against the expertise of
+  chemists. Nature Chemistry (2025). doi:10.1038/s41557-025-01815-x.
+  Data: https://huggingface.co/datasets/jablonkagroup/ChemBench
+modalities: [text, chemistry, safety, qa]
+kinds: [qa_item]
+access: huggingface
+size_full: "9 chemistry and lab-safety Parquet subsets (~2,700 curated questions on Hugging Face)"
+status: fetch_only
+notes: >-
+  EVALUATION ONLY benchmark containing the BIG-bench canary GUID. Every record is tagged
+  eval_only and blocked from all training exports and committed samples.

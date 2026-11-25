@@ -5,9 +5,10 @@
 Open science data is spread over figshare, Zenodo, Dataverse, Hugging Face and GitHub,
 each with its own format, units and license. The skill that matters most now is to collect
 that open data, turn it into one format, and use what the open community has already
-built. assayfold does this for lab science: protocols, reactions, quantum chemistry,
-molecules, lab images and reaction-path structures go in, and one hierarchical, checked,
-license-aware record format comes out.
+built. assayfold does this for lab science: protocols, atomic wet-lab operations, reactions,
+quantum chemistry, molecules, multi-solvent solubilities, electrolyte conductivities, MS/MS,
+Raman and powder XRD spectra, lab images, machine audio and reaction-path structures go in,
+and one hierarchical, checked, license-aware record format comes out.
 
 ```
 Source  (who published it, license + evidence URL, citation)
@@ -51,14 +52,23 @@ Generated from `sources/*.yaml` by `assayfold catalog` (also in [catalog.csv](ca
 | Source | Modalities | License | Commercial use | Full size | Sample records | Status |
 |---|---|---|---|---|---|---|
 | [AqSolDB](https://doi.org/10.7910/DVN/OVHAW8) | molecule, property | [CC0-1.0](https://dataverse.harvard.edu/api/datasets/:persistentId/?persistentId=doi:10.7910/DVN/OVHAW8) | yes | 3.8 MB (curated-solubility-dataset.tab, 3,844,092 bytes per Dataverse) | 25 | integrated |
+| [BigSolDB 2.0 multi-solvent solubility](https://doi.org/10.5281/zenodo.15094979) | molecule, solubility, property | [CC-BY-4.0](https://zenodo.org/api/records/15094979) | yes | BigSolDBv2.0.csv 18,280,116 bytes; BigSolDBv2.0_densities.csv 120,029 bytes (Zenodo) | 25 | integrated |
 | [BioProBench](https://huggingface.co/datasets/BioProBench/BioProBench) | text, protocol, qa | [CC-BY-NC-4.0 (non-commercial)](https://github.com/YuyangSunshine/bioprobench) | no | test files: PQA 1,200, ORD 1,161, ERR 1,200, GEN 772 items; all JSON files ~783 MB (HF file list) | 0 | fetch_only |
+| [CALiSol-23 electrolyte conductivity atlas](https://doi.org/10.11583/DTU.24559960.v1) | electrolyte, conductivity, property | [CC-BY-4.0](https://api.figshare.com/v2/articles/24559960) | yes | 13,825 rows across 14 Li salts and 38 solvents (calisol23_DOI_10.11583DTU.c.6929599.csv, 2,868,746 bytes) | 25 | integrated |
+| [ChemBench chemistry knowledge and safety benchmark](https://huggingface.co/datasets/jablonkagroup/ChemBench) | text, chemistry, safety, qa | [MIT](https://huggingface.co/api/datasets/jablonkagroup/ChemBench) | yes | 9 chemistry and lab-safety Parquet subsets (~2,700 curated questions on Hugging Face) | 0 | fetch_only |
+| [DCASE 2025 Task 2 machine anomalous sound detection](https://doi.org/10.5281/zenodo.15097779) | audio, acoustic, anomaly_detection | [CC-BY-NC-SA-4.0 (non-commercial)](https://zenodo.org/api/records/15097779) | no | 7 machine ZIP archives (valve, slider, fan, gearbox, bearing, ToyCar, ToyTrain; ~2.36 GB total on Zenodo) | 0 | fetch_only |
+| [FineBio biological experiment protocol and atomic action dataset](https://github.com/aistairc/FineBio) | video, protocol, action | [LicenseRef-FineBio-NC (non-commercial)](https://github.com/aistairc/FineBio#download) | no | 226 multi-view wet-lab experiment trials across 32 participants and 7 protocols (14.5 h video; hierarchical JSON/TXT annotations on GitHub) | 0 | fetch_only |
 | [FreeSolv hydration free energies](https://github.com/MobleyLab/FreeSolv) | molecule, property | [CC-BY-4.0](https://github.com/MobleyLab/FreeSolv/blob/master/README.md#license) | yes | 642 molecules (database.json) | 25 | integrated |
 | [LAB-Bench (ProtocolQA and other subsets)](https://huggingface.co/datasets/futurehouse/lab-bench) | text, protocol, qa | [CC-BY-SA-4.0](https://huggingface.co/datasets/futurehouse/lab-bench) | yes | 1,967 rows in 8 subsets, 268 MB parquet (HF datasets-server); ProtocolQA: 108 rows | 0 | fetch_only |
 | [LabPics (Medical) vessel and material segmentation](https://doi.org/10.5281/zenodo.4736111) | image, segmentation | [MIT](https://zenodo.org/api/records/4736111) | yes | LabPicsMedical.zip 280,823,957 bytes; LabPicsChemistry.zip 3,917,445,796 bytes (Zenodo) | 12 | integrated |
+| [MassSpecGym tandem MS/MS spectra](https://huggingface.co/datasets/roman-bushuiev/MassSpecGym) | spectrum, molecule, msms | [MIT](https://huggingface.co/api/datasets/roman-bushuiev/MassSpecGym) | yes | 231k MS/MS spectra (MassSpecGym.tsv 262,334,768 bytes on Hugging Face) | 20 | integrated |
+| [opXRD experimental powder X-ray diffraction](https://doi.org/10.5281/zenodo.15298026) | spectrum, xrd, crystal | [CC-BY-4.0](https://zenodo.org/api/records/15298026) | yes | 92,565 experimental PXRD JSON patterns across 7 institutions (opxrd.zip, 1,400,997,733 bytes on Zenodo) | 10 | integrated |
 | [Open Reaction Database (ORD)](https://open-reaction-database.org) | reaction, conditions, outcome | [CC-BY-SA-4.0](https://github.com/open-reaction-database/ord-data#license) | yes | one Parquet file per dataset (Git LFS, mirrored on Hugging Face); default sample file 19,867 bytes, 96 reactions | 10 | integrated |
 | [protocols.io public protocols](https://www.protocols.io) | text, protocol | [CC-BY-4.0](https://www.protocols.io/terms) | yes | public protocol collection via API; no total stated in the API docs | 0 | planned |
 | [QM9 (134k molecules, DFT properties and 3D structures)](https://doi.org/10.1038/sdata.2014.22) | structure, property | [CC0-1.0](https://jla-gardner.github.io/load-atoms/datasets/QM9.html) | yes | 133,885 molecules; mirror gdb9.tar.gz is 44,852,087 bytes | 20 | integrated |
+| [Bioprocess Analytes Benchtop Raman (Kaiser RXN1)](https://huggingface.co/datasets/chlange/RamanSpectraBioprocessAnalystesKaiser) | spectrum, raman, bioprocess | [CC-BY-4.0](https://huggingface.co/api/datasets/chlange/RamanSpectraBioprocessAnalystesKaiser) | yes | 134 Raman spectra (300.0-1941.3 cm^-1) across train/val/test Parquet splits | 5 | integrated |
 | [RGD1 reaction database (CHNO)](https://doi.org/10.6084/m9.figshare.21066901) | reaction, energy, transition_state, geometry | [CC-BY-4.0](https://api.figshare.com/v2/articles/21066901) | yes | DFT_reaction_info.csv 33.4 MB; RGD1_CHNO.h5 1.34 GB; RGD1_RPs.h5 468 MB (figshare file sizes) | 20 | integrated |
+| [Raman Open Database (ROD, COD-linked)](https://solsa.crystallography.net/rod/) | spectrum, raman, crystal | [CC0-1.0](https://solsa.crystallography.net/rod/1000001.rod) | yes | Open CIF 2.0 mineral and crystal Raman spectra via REST API (solsa.crystallography.net/rod) | 10 | integrated |
 | [Transition1x reaction-pathway DFT data](https://doi.org/10.1038/s41597-022-01870-w) | structure, energy, forces, reaction_path | [MIT](https://huggingface.co/datasets/colabfit/Transition1x-test) | yes | 9.6 million DFT calculations (card); test split 190,261 configurations, co_0.parquet 146 MB | 20 | integrated |
 | [USPTO reactions (Lowe, 1976-Sep 2016)](https://doi.org/10.6084/m9.figshare.5104873.v1) | reaction | [CC0-1.0](https://api.figshare.com/v2/articles/5104873) | yes | grants SMILES 7z 75,191,394 bytes; applications SMILES 7z 87,597,379 bytes (figshare) | 0 | planned |
 | [Wet Lab Protocols corpus (WLP)](https://github.com/chaitanya2334/WLP-Dataset) | text, protocol, annotation | [MIT](https://github.com/chaitanya2334/WLP-Dataset/blob/master/LICENSE) | yes | 622 annotated protocols (README) | 58 | integrated |
@@ -75,17 +85,23 @@ with a record id and reason. RGD1 reports how many malformed rows it skipped; a 
 last line at EOF is allowed, other dropped rows are counted.
 
 - **Schema validation**: pydantic models with `extra="forbid"`; the JSON Schema is in [schema/](schema).
-- **Unit normalization**: raw unit strings map to UCUM-style codes (`uL`, `Cel`, `kcal/mol`,
-  `Ao`, `[Eh]` for Hartree); the original string is kept in `raw_unit_str`; unknown units fail.
-- **Chemistry sanity**: SMILES parse (RDKit when installed), finite coordinates, atom/coordinate counts.
+- **Unit normalization**: raw unit strings map to UCUM-style codes (`uL`, `Cel`, `K`,
+  `kcal/mol`, `Ao`, `[Eh]` for Hartree, `mS/cm` for electrolyte conductivity, `deg` for
+  2-theta diffraction angles, `/cm` for `cm^-1` Raman shift, `[m/z]` and `g/mol` for `Da` in
+  mass spectrometry, `mol/kg`, `g/L`, `Hz`); the original string is kept in `raw_unit_str`;
+  unknown units fail (including `Spectrum.x_unit` and `Spectrum.y_unit`).
+- **Chemistry and spectral sanity**: SMILES parse (RDKit when installed), finite coordinates,
+  atom/coordinate counts, finite matched-length `Spectrum` arrays.
 - **Dedup**: by content hash, and by canonical SMILES for molecules within a source.
 - **Integrity**: `record_hash` is checked on the record as loaded, before unit normalization
   reseals it.
 - **License gate**: each record's `source_id` must exist in `sources/<id>.yaml`, and its
   license must match that source file. The per-record license string alone is not trusted.
-  Non-commercial data is blocked for `train_commercial` and for `rag` (an index that may
-  serve a commercial product). It is allowed for `rag_research`, with a research-use-only
-  note. Benchmark items (`eval_only` tag) never enter a training export.
+  Non-commercial data (`CC-BY-NC-4.0`, `CC-BY-NC-SA-4.0`, `LicenseRef-FineBio-NC`) is blocked
+  for `train_commercial`, `rag` (an index that may serve a commercial product), and committed
+  samples. It is allowed for `train_research` and `rag_research`, with research-use-only (and
+  share-alike, where applicable) notes. Benchmark items (`eval_only` tag, e.g. LAB-Bench,
+  ChemBench, BioProBench, and held-out test folds) never enter a training export or sample.
 
 ## License policy
 

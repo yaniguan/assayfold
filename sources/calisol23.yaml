@@ -1,0 +1,22 @@
+id: calisol23
+name: CALiSol-23 electrolyte conductivity atlas
+homepage: https://doi.org/10.11583/DTU.24559960.v1
+license: CC-BY-4.0
+license_url: https://creativecommons.org/licenses/by/4.0/
+license_evidence: https://api.figshare.com/v2/articles/24559960
+license_quote: 'DTU Data / Figshare API license: name "CC BY 4.0", url "https://creativecommons.org/licenses/by/4.0/"'
+license_checked: "2026-11-25"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  de Blasio, P. V. F., Elsborg, J. T., Vegge, T., Flores, E., Bhowmik, A. CALiSol-23:
+  Experimental electrolyte conductivity data for lithium-ion batteries. Scientific Data 11,
+  750 (2024). doi:10.1038/s41597-024-03575-8. Data: doi:10.11583/DTU.24559960.v1
+modalities: [electrolyte, conductivity, property]
+kinds: [observation]
+access: download
+size_full: "13,825 rows across 14 Li salts and 38 solvents (calisol23_DOI_10.11583DTU.c.6929599.csv, 2,868,746 bytes)"
+status: integrated
+notes: >-
+  Experimental non-aqueous Li-ion electrolyte ionic conductivities k in mS/cm, temperature T
+  in K, and salt concentration c in mol/kg or mol/L across weight/molar/volume solvent ratios.

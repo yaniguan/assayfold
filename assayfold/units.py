@@ -1,9 +1,10 @@
 """Small unit table: raw unit strings -> UCUM-style codes, plus a few safe conversions.
 
 No external unit library. Units we do not know raise in strict mode.
-Codes in square brackets ([Eh], [logS]) are local codes, not official UCUM.
+Codes in square brackets ([Eh], [logS], [m/z]) are local codes, not official UCUM.
 """
 
+import math
 import re
 
 # raw string (lower-cased, spaces removed) -> canonical code
@@ -12,11 +13,15 @@ _ALIASES = {
     "ml": "mL", "milliliter": "mL", "milliliters": "mL", "l": "L", "liter": "L",
     "nl": "nL", "nanoliter": "nL",
     "g": "g", "mg": "mg", "ug": "ug", "µg": "ug", "kg": "kg", "gram": "g", "milligram": "mg",
-    "g/mol": "g/mol", "da": "g/mol",
+    "g/mol": "g/mol", "da": "g/mol", "dalton": "g/mol", "daltons": "g/mol",
+    "amu": "g/mol", "u": "g/mol", "kg/mol": "kg/mol", "kda": "kg/mol",
     "mol/l": "mol/L", "molar": "mol/L", "mmol/l": "mmol/L",
     "umol/l": "umol/L", "mol": "mol", "mmol": "mmol",
+    "mol/kg": "mol/kg", "mmol/kg": "mmol/kg", "molal": "mol/kg",
+    "g/l": "g/L", "gl-1": "g/L", "g/liter": "g/L", "mg/ml": "g/L", "mg/l": "mg/L",
     "c": "Cel", "°c": "Cel", "degc": "Cel", "celsius": "Cel", "cel": "Cel",
     "k": "K", "kelvin": "K",
+    "ms": "ms", "millisecond": "ms", "milliseconds": "ms",
     "s": "s", "sec": "s", "second": "s", "seconds": "s", "min": "min", "minute": "min",
     "minutes": "min", "h": "h", "hr": "h", "hour": "h", "hours": "h",
     "hartree": "[Eh]", "ha": "[Eh]", "eh": "[Eh]", "[eh]": "[Eh]",
@@ -27,14 +32,32 @@ _ALIASES = {
     "debye": "[D]", "d": "[D]", "[d]": "[D]",
     "bohr^3": "[a0]3", "a0^3": "[a0]3", "bohr3": "[a0]3", "bohr^2": "[a0]2", "a0^2": "[a0]2",
     "cal/molk": "cal/(mol.K)", "cal/(mol·k)": "cal/(mol.K)", "cal/(mol.k)": "cal/(mol.K)",
-    "ghz": "GHz", "mhz": "MHz",
-    "nm": "nm", "cm-1": "/cm", "cm^-1": "/cm", "1/cm": "/cm", "/cm": "/cm",
+    "hz": "Hz", "hertz": "Hz", "fps": "Hz", "khz": "kHz", "ghz": "GHz", "mhz": "MHz",
+    "nm": "nm", "cm-1": "/cm", "cm^-1": "/cm", "cm⁻¹": "/cm", "1/cm": "/cm", "/cm": "/cm",
+    "wavenumber": "/cm", "ramanshift": "/cm", "ramanshift(cm^-1)": "/cm",
+    "deg": "deg", "°": "deg", "degree": "deg", "degrees": "deg",
+    "2theta": "deg", "2-theta": "deg", "deg2theta": "deg", "deg(2theta)": "deg",
+    "rad": "rad", "radian": "rad", "radians": "rad",
+    "ms/cm": "mS/cm", "mscm-1": "mS/cm", "mscm^-1": "mS/cm", "ms·cm-1": "mS/cm",
+    "s/cm": "S/cm", "scm-1": "S/cm", "scm^-1": "S/cm",
+    "s/m": "S/m", "sm-1": "S/m", "sm^-1": "S/m",
+    "us/cm": "uS/cm", "µs/cm": "uS/cm", "μs/cm": "uS/cm",
+    "m/z": "[m/z]", "mz": "[m/z]", "[m/z]": "[m/z]", "th": "[m/z]",
+    "thomson": "[m/z]", "da/e": "[m/z]",
+    "mw": "mW", "milliwatt": "mW", "w": "W", "watt": "W",
+    "db": "dB", "decibel": "dB",
+    "pa": "Pa", "kpa": "kPa", "bar": "bar", "atm": "atm",
+    "{counts}": "{counts}", "counts": "{counts}", "cnt": "{counts}",
+    "{arb}": "{arb}", "a.u.": "{arb}", "au": "{arb}", "arb.units": "{arb}",
     "ppm": "[ppm]", "%": "%", "percent": "%", "rpm": "{rpm}", "xg": "{g-force}", "g-force": "{g-force}",
     "log(mol/l)": "[logS]", "logs": "[logS]", "log10(mol/l)": "[logS]", "[logs]": "[logS]",
     "1": "1", "": "1", "unitless": "1", "dimensionless": "1",
 }
 # case-sensitive aliases (checked first): M is molar, m would be metre
-_CASED = {"M": "mol/L", "mM": "mmol/L", "uM": "umol/L", "µM": "umol/L", "nM": "nmol/L", "D": "[D]"}
+_CASED = {
+    "M": "mol/L", "mM": "mmol/L", "uM": "umol/L", "µM": "umol/L", "nM": "nmol/L",
+    "D": "[D]", "Da": "g/mol", "kDa": "kg/mol",
+}
 KNOWN = set(_ALIASES.values()) | set(_CASED.values())
 
 # (from, to) -> factor or function for safe conversions
@@ -47,6 +70,14 @@ _FACTORS = {
     ("mL", "uL"): 1000.0, ("uL", "mL"): 0.001, ("L", "mL"): 1000.0, ("mL", "L"): 0.001,
     ("[a0]", "Ao"): 0.529177210903, ("Ao", "[a0]"): 1 / 0.529177210903,
     ("[Eh]/[a0]", "eV/Ao"): 27.211386245988 / 0.529177210903,
+    ("mS/cm", "S/m"): 0.1, ("S/m", "mS/cm"): 10.0,
+    ("S/cm", "mS/cm"): 1000.0, ("mS/cm", "S/cm"): 0.001,
+    ("mS/cm", "uS/cm"): 1000.0, ("uS/cm", "mS/cm"): 0.001,
+    ("deg", "rad"): math.pi / 180.0, ("rad", "deg"): 180.0 / math.pi,
+    ("kHz", "Hz"): 1000.0, ("Hz", "kHz"): 0.001,
+    ("s", "ms"): 1000.0, ("ms", "s"): 0.001,
+    ("W", "mW"): 1000.0, ("mW", "W"): 0.001,
+    ("g/L", "mg/L"): 1000.0, ("mg/L", "g/L"): 0.001,
 }
 
 

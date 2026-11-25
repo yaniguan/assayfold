@@ -18,6 +18,7 @@ TABLE = {
     "BSD-3-Clause": (True, True, False, True),
     "CC-BY-NC-4.0": (True, False, False, True),
     "CC-BY-NC-SA-4.0": (True, False, True, True),
+    "LicenseRef-FineBio-NC": (False, False, False, True),
 }
 
 # "rag" means an index that may serve a commercial product, so non-commercial data is
@@ -90,6 +91,6 @@ def allowed(record, purpose: str, sources: dict | None = None) -> tuple[bool, st
         return False, f"non-commercial source or record; blocked for {purpose}"
     if purpose == "redistribute_sample" and not src.redistribution_ok:
         return False, "source does not allow redistribution"
-    if purpose.startswith("train") and EVAL_ONLY_TAG in record.tags:
-        return False, "benchmark item (eval_only): keep out of training corpora"
+    if (purpose.startswith("train") or purpose == "redistribute_sample") and EVAL_ONLY_TAG in record.tags:
+        return False, "benchmark item (eval_only): keep out of training corpora and committed samples"
     return gate(record.license, purpose)

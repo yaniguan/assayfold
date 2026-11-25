@@ -1,0 +1,23 @@
+id: dcase2025_task2
+name: DCASE 2025 Task 2 machine anomalous sound detection
+homepage: https://doi.org/10.5281/zenodo.15097779
+license: CC-BY-NC-SA-4.0
+license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+license_evidence: https://zenodo.org/api/records/15097779
+license_quote: 'Zenodo record 15097779 metadata: license id "cc-by-nc-sa-4.0"'
+license_checked: "2026-11-25"
+commercial_use_ok: false
+redistribution_ok: true
+attribution: >-
+  Harada, N., Niizumi, D., Takeuchi, D., Ohishi, Y., Yasuda, M., Saito, S. et al.
+  DCASE 2025 Challenge Task 2 Development Dataset: First-Shot Unsupervised Anomalous Sound
+  Detection for Machine Condition Monitoring. Zenodo (2025). doi:10.5281/zenodo.15097779
+modalities: [audio, acoustic, anomaly_detection]
+kinds: [observation]
+access: download
+size_full: "7 machine ZIP archives (valve, slider, fan, gearbox, bearing, ToyCar, ToyTrain; ~2.36 GB total on Zenodo)"
+status: fetch_only
+notes: >-
+  NON-COMMERCIAL + SHARE-ALIKE (CC-BY-NC-SA-4.0). Blocked from train_commercial, rag, and
+  committed samples; allowed for train_research and rag_research with non-commercial and
+  share-alike notes. Single-channel 16 kHz WAV clips fetched via HTTP range requests.

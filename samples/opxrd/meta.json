@@ -1,0 +1,36 @@
+{
+  "n_records": 10,
+  "quality": {
+    "n_in": 10,
+    "n_out": 10,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-25T20:00:12Z",
+  "dataset": {
+    "id": "opxrd-zenodo",
+    "source_id": "opxrd",
+    "name": "opXRD experimental powder X-ray diffraction",
+    "version": "Zenodo record 15298026 (opxrd.zip)",
+    "url": "https://doi.org/10.5281/zenodo.15298026",
+    "license": "CC-BY-4.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-25T20:00:12Z",
+    "files": {
+      "EMPA/pattern_0.json": "54b9bc2be27dea6d35592100da886906bed9f54ef86d264d343d82a70adcd552",
+      "EMPA/pattern_1.json": "e6ed66fa6eef9ed1bdc8190fa05cb053be245f348e5e62631b3ab9f372cc9d4c",
+      "EMPA/pattern_10.json": "6e4e3b2ba18d44cda6a99e5918a1a79e43769a8e15204210a1f53de95a83e2f4",
+      "EMPA/pattern_100.json": "79aa8b7879a157b1f2107a916e004a8331c76da6e3103b1ac133f477a9d5f4cc",
+      "EMPA/pattern_101.json": "546691f8d8cae63938a362d52d632c935fe639580c7ba2543f0085ce248af093",
+      "EMPA/pattern_102.json": "4d63293ec69eb695418ce7505e7bf587a77937502850d55597101039901c6d6d",
+      "EMPA/pattern_103.json": "73ce94d439c171d15205e20423dabf6d803e9df9875ba4e564278d0ef5e40627",
+      "EMPA/pattern_104.json": "a4e9de0c577fe69c51d85610cc73414c434e389f1dcd64d89339788f4f673cd6",
+      "EMPA/pattern_105.json": "b45349f7517cac60d429a676df4114786dc0a1d89539423f382cf97e135c3787",
+      "EMPA/pattern_106.json": "2a76f08a6ebf9d5def8f3a42974d2cff887bb9c5d87e9971b5feb1766f196cd8"
+    }
+  },
+  "partial_read": true,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample opxrd --limit 10"
+}

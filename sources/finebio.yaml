@@ -1,0 +1,23 @@
+id: finebio
+name: FineBio biological experiment protocol and atomic action dataset
+homepage: https://github.com/aistairc/FineBio
+license: LicenseRef-FineBio-NC
+license_url: https://raw.githubusercontent.com/aistairc/FineBio/main/FineBio_License_Agreement.pdf
+license_evidence: https://github.com/aistairc/FineBio#download
+license_quote: '"Usage is limited to non-commercial research/development use"; FineBio License Agreement grants non-transferable research license without right to sublicense.'
+license_checked: "2026-11-25"
+commercial_use_ok: false
+redistribution_ok: false
+attribution: >-
+  Yagi, T., Ohashi, M., Huang, Y., Furukawa, R., Okada, S., Sato, Y. FineBio: A Fine-Grained
+  Video Dataset of Biological Experiments with Hierarchical Annotation. CVPR (2024) / IJCV
+  (2025). doi:10.1007/s11263-025-02523-2
+modalities: [video, protocol, action]
+kinds: [protocol, protocol_step]
+access: github
+size_full: "226 multi-view wet-lab experiment trials across 32 participants and 7 protocols (14.5 h video; hierarchical JSON/TXT annotations on GitHub)"
+status: fetch_only
+notes: >-
+  NON-COMMERCIAL, NO REDISTRIBUTION. Fetched by script into gitignored data/raw/finebio/
+  only; blocked from train_commercial, rag, and redistribute_sample. Maps trials to Protocol
+  and timestamped atomic hand-object operations (s, Hz) to ProtocolStep.

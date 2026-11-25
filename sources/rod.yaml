@@ -1,0 +1,24 @@
+id: rod
+name: Raman Open Database (ROD, COD-linked)
+homepage: https://solsa.crystallography.net/rod/
+license: CC0-1.0
+license_url: https://creativecommons.org/publicdomain/zero/1.0/
+license_evidence: https://solsa.crystallography.net/rod/1000001.rod
+license_quote: '"All data on this site have been placed in the public domain by the contributors."'
+license_checked: "2026-11-25"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  El Mendili, Y., Vaitkus, A., Merkys, A., Grazulis, S. et al. Raman Open Database: first
+  interconnected Raman-X-ray diffraction open-access resource for material identification.
+  J. Appl. Crystallogr. 52, 618-625 (2019). doi:10.1107/S1600576719004229.
+  Data: https://solsa.crystallography.net/rod/
+modalities: [spectrum, raman, crystal]
+kinds: [spectrum]
+access: api
+size_full: "Open CIF 2.0 mineral and crystal Raman spectra via REST API (solsa.crystallography.net/rod)"
+status: integrated
+notes: >-
+  Uncorrected experimental crystal and mineral Raman spectra in CIF 2.0 (.rod) format
+  (Raman shift normalized from cm^-1 to /cm, laser wavelength in nm), cross-linked to
+  Crystallography Open Database (COD) structure IDs.

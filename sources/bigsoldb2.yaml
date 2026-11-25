@@ -1,0 +1,22 @@
+id: bigsoldb2
+name: BigSolDB 2.0 multi-solvent solubility
+homepage: https://doi.org/10.5281/zenodo.15094979
+license: CC-BY-4.0
+license_url: https://creativecommons.org/licenses/by/4.0/
+license_evidence: https://zenodo.org/api/records/15094979
+license_quote: 'Zenodo record 15094979 metadata: license id "cc-by-4.0"'
+license_checked: "2026-11-25"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Krasnov, L., Malikov, D., Kiseleva, M. et al. BigSolDB 2.0, dataset of solubility values
+  for organic compounds in different solvents at various temperatures. Scientific Data 12,
+  1236 (2025). doi:10.1038/s41597-025-05559-8. Data: doi:10.5281/zenodo.15094979
+modalities: [molecule, solubility, property]
+kinds: [observation]
+access: download
+size_full: "BigSolDBv2.0.csv 18,280,116 bytes; BigSolDBv2.0_densities.csv 120,029 bytes (Zenodo)"
+status: integrated
+notes: >-
+  Experimental solubilities of organic solutes across organic solvents and water as a function
+  of temperature (K), reported in mole fraction, mol/L, and LogS(mol/L) ([logS]).

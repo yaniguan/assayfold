@@ -83,6 +83,15 @@ def validate(rec) -> list[str]:
     if p.kind == "structure":
         if not all(math.isfinite(v) for c in p.coords_angstrom for v in c):
             problems.append("non-finite coordinate")
+    if p.kind == "spectrum":
+        if not units.is_known(p.x_unit):
+            problems.append(f"unknown unit: {p.x_unit}")
+        if not units.is_known(p.y_unit):
+            problems.append(f"unknown unit: {p.y_unit}")
+        if len(p.x) != len(p.y):
+            problems.append("spectrum x and y differ in length")
+        if not all(math.isfinite(v) for v in p.x) or not all(math.isfinite(v) for v in p.y):
+            problems.append("non-finite spectrum value")
     for q in _quantities(rec):
         if not units.is_known(q.unit):
             problems.append(f"unknown unit: {q.unit}")
@@ -105,6 +114,9 @@ def _smiles_of(rec: Record):
 
 def normalize_units(rec: Record) -> Record:
     """Map raw unit strings to canonical codes in place (lenient: unknown stays as is)."""
+    if rec.payload.kind == "spectrum":
+        rec.payload.x_unit = units.to_code(rec.payload.x_unit, strict=False)
+        rec.payload.y_unit = units.to_code(rec.payload.y_unit, strict=False)
     for q in _quantities(rec):
         code = units.to_code(q.unit, strict=False)
         if code != q.unit:

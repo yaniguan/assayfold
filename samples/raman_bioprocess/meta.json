@@ -1,0 +1,27 @@
+{
+  "n_records": 5,
+  "quality": {
+    "n_in": 5,
+    "n_out": 5,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-25T20:01:55Z",
+  "dataset": {
+    "id": "raman-bioprocess-kaiser",
+    "source_id": "raman_bioprocess",
+    "name": "Bioprocess Analytes Benchtop Raman (Kaiser RXN1)",
+    "version": "HF chlange/RamanSpectraBioprocessAnalystesKaiser main",
+    "url": "https://huggingface.co/datasets/chlange/RamanSpectraBioprocessAnalystesKaiser",
+    "license": "CC-BY-4.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-25T20:01:55Z",
+    "files": {
+      "train.parquet": "1fc4a681f531a6d5ebb53c7c6b7edffe3c58f85f8e4b65258a405b256349e7be"
+    }
+  },
+  "partial_read": true,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample raman_bioprocess --limit 5"
+}
