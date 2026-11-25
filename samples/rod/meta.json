@@ -1,0 +1,36 @@
+{
+  "n_records": 10,
+  "quality": {
+    "n_in": 10,
+    "n_out": 10,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-25T19:59:25Z",
+  "dataset": {
+    "id": "rod-cif",
+    "source_id": "rod",
+    "name": "Raman Open Database (ROD, COD-linked)",
+    "version": "ROD CIF 2.0 (solsa.crystallography.net/rod)",
+    "url": "https://solsa.crystallography.net/rod/",
+    "license": "CC0-1.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-25T19:59:25Z",
+    "files": {
+      "1000001.rod": "26d332854140a91f1886c5ca274e4d88ae9e7e9a3499c3bc76b8d932b9b4e5e1",
+      "1000002.rod": "5baad6cf3fcdd681ec0299a79c891fda86e40bd39a261906ce85fdc446ef4b5b",
+      "1000003.rod": "bb168cc377fa9413385f847cf3664570bb97fe229a22e6f63112dcea7109d66f",
+      "1000004.rod": "f9419704d09916a31e26149e86aa9ac342877ec4e3b7db4754e42a3ca344eedb",
+      "1000005.rod": "11f8b3abc2cc8476b5c031d888b11351cbc16c8ca51b80d8d967962446e9b758",
+      "1000006.rod": "8e22652cfb9c88a18fa15d7aaec2486e857913e01644a1924817f9cba97b5257",
+      "1000007.rod": "829d8e534e77c1c475edc0879b93dfb0d4641383cc9feece18b7302bfb30fc1e",
+      "1000008.rod": "960f98209a5142dd9afd74a2aa050a68f8b1361de7595dc9109492defc9eb743",
+      "1000009.rod": "699cb549a6ca148b85ce7c66f27f05b856490fe5f86ed37a21696a5ad4e4b98a",
+      "1000010.rod": "b63163b78719fb5e5e484849fabe7c34c4fdd9e23c6aac356bd5f00e7fcf99e0"
+    }
+  },
+  "partial_read": true,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample rod --limit 10"
+}

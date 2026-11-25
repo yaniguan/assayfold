@@ -1,0 +1,27 @@
+{
+  "n_records": 25,
+  "quality": {
+    "n_in": 25,
+    "n_out": 25,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-25T19:59:10Z",
+  "dataset": {
+    "id": "bigsoldb-v2.0",
+    "source_id": "bigsoldb2",
+    "name": "BigSolDB 2.0 multi-solvent solubility",
+    "version": "Zenodo doi:10.5281/zenodo.15094979 (BigSolDBv2.0.csv)",
+    "url": "https://doi.org/10.5281/zenodo.15094979",
+    "license": "CC-BY-4.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-25T19:59:10Z",
+    "files": {
+      "BigSolDBv2.0.head1500000.csv": "938a28b7d12223634fd157aa147514c059b60be1a3f922319c77bffc15651614"
+    }
+  },
+  "partial_read": true,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample bigsoldb2 --limit 25"
+}

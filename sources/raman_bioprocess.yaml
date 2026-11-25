@@ -1,0 +1,23 @@
+id: raman_bioprocess
+name: Bioprocess Analytes Benchtop Raman (Kaiser RXN1)
+homepage: https://huggingface.co/datasets/chlange/RamanSpectraBioprocessAnalystesKaiser
+license: CC-BY-4.0
+license_url: https://creativecommons.org/licenses/by/4.0/
+license_evidence: https://huggingface.co/api/datasets/chlange/RamanSpectraBioprocessAnalystesKaiser
+license_quote: 'Hugging Face dataset cardData: "license": "cc-by-4.0"'
+license_checked: "2026-11-25"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Lange, C., Borisyak, M., Koegler, M., Born, S., Ziehe, A., Neubauer, P., Cruz Bournazou, M. N.
+  Comparing machine learning methods on Raman spectra from eight different spectrometers.
+  Spectrochimica Acta Part A 334, 125861 (2025). doi:10.1016/j.saa.2025.125861
+modalities: [spectrum, raman, bioprocess]
+kinds: [spectrum]
+access: huggingface
+size_full: "134 Raman spectra (300.0-1941.3 cm^-1) across train/val/test Parquet splits"
+status: integrated
+notes: >-
+  Benchtop 785 nm Raman spectra (Raman shift normalized from cm^-1 to /cm) of aqueous
+  glucose, sodium acetate, and magnesium sulfate mixtures with enzymatic assay concentrations
+  in g/L.

@@ -1,0 +1,27 @@
+{
+  "n_records": 20,
+  "quality": {
+    "n_in": 20,
+    "n_out": 20,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-25T19:59:12Z",
+  "dataset": {
+    "id": "massspecgym-v1",
+    "source_id": "massspecgym",
+    "name": "MassSpecGym tandem MS/MS spectra",
+    "version": "HF roman-bushuiev/MassSpecGym main (data/MassSpecGym.tsv)",
+    "url": "https://huggingface.co/datasets/roman-bushuiev/MassSpecGym",
+    "license": "MIT",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-25T19:59:12Z",
+    "files": {
+      "MassSpecGym.head1000000.tsv": "446a3dc30747dfaeb2fed63c6311855c914f4fb415d4fc2f8f80f2aa7852227d"
+    }
+  },
+  "partial_read": true,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample massspecgym --limit 20"
+}
