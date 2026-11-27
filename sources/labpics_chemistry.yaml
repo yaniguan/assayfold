@@ -1,0 +1,22 @@
+id: labpics_chemistry
+name: LabPics (Chemistry) reaction vessel and phase segmentation
+homepage: https://doi.org/10.5281/zenodo.4736111
+license: MIT
+license_url: https://opensource.org/license/mit
+license_evidence: https://zenodo.org/api/records/4736111
+license_quote: 'Zenodo record 4736111 metadata: license "mit-license" (Copyright (c) Eppel, S. et al.)'
+license_checked: "2026-11-27"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Eppel, S., Xu, H., Bismuth, M., Aspuru-Guzik, A. Computer vision for recognition of materials
+  and vessels in chemistry lab settings and the Vector-LabPics dataset. ACS Central Science 6,
+  1743-1752 (2020), doi:10.1021/acscentsci.0c00460; Zenodo doi:10.5281/zenodo.4736111.
+modalities: [image, segmentation, chemistry_vessels]
+kinds: [image]
+access: download
+size_full: "LabPicsChemistry.zip 3,917,445,796 bytes (~5,007 annotated chemistry vessel scenes on Zenodo)"
+status: integrated
+notes: >-
+  Chemistry lab vessel, liquid/solid/foam/suspension phase, and apparatus instance segmentation
+  scenes read selectively over HTTP range requests without downloading the full 3.9 GB archive.

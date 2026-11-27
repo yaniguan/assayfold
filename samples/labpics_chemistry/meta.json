@@ -1,0 +1,46 @@
+{
+  "n_records": 10,
+  "quality": {
+    "n_in": 10,
+    "n_out": 10,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-27T22:41:17Z",
+  "dataset": {
+    "id": "labpics-chemistry",
+    "source_id": "labpics_chemistry",
+    "name": "LabPics (Chemistry) reaction vessel and phase segmentation",
+    "version": "Zenodo record 4736111 (LabPicsChemistry.zip)",
+    "url": "https://doi.org/10.5281/zenodo.4736111",
+    "license": "MIT",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-27T22:41:17Z",
+    "files": {
+      "Test/1000Eval/Data.json": "d35345bb167232ce08a6f9cf0b214ec1fe9f4de44ddd26c3547eee3cd924cdcf",
+      "Test/1000Eval/Image.jpg": "7a3794f09514696995f697a734633a0accd1bf5fa084e30dcba85d0efc7b838a",
+      "Test/1001Eval/Data.json": "6035d06e575bcf6d3d6c7192b0dc36f8aec86b8091934823ab9590777686bc8e",
+      "Test/1001Eval/Image.jpg": "ec3fbd0baadcde18608ef45c452caae4fcb71099fc509c186ed5c485a9c6f834",
+      "Test/1002Eval/Data.json": "2f7a7e36ed86783aa3e9d7b414107339611bc76699cecaec4d87daa595d16903",
+      "Test/1002Eval/Image.jpg": "24bf91ba538c27fd8dfa64cb1fc56afb3f00ad7c28d888add9eec7099ac207de",
+      "Test/1003Eval/Data.json": "33dd20f180d735a4f8854dd063a6df82247b58e92989cf7fe11bb7b8021b9884",
+      "Test/1003Eval/Image.jpg": "8dbd85ff7b8e3eb64ddcf969063e5e9d7f8e04331826b60a2953e69e3f3ae293",
+      "Test/1004Eval/Data.json": "2f7a7e36ed86783aa3e9d7b414107339611bc76699cecaec4d87daa595d16903",
+      "Test/1004Eval/Image.jpg": "80b8a2c35fe6da29b1a73a220b4a48b191f2a01fc635b167824cc14d9fa8fef4",
+      "Test/1005Eval/Data.json": "0ed57fbc3b8d558f80149bc20f3a5dc67206cb740c0e56e28a2f712361d36d3d",
+      "Test/1005Eval/Image.jpg": "d6ad9d7b232da8dcff2e01e2b264c4475837e43a747a0ea27f3f637616da5d82",
+      "Test/1006Eval/Data.json": "44915ef4b586b47b76f86b81eb1115c58133df92cc4758d2fe561b3ba8b54588",
+      "Test/1006Eval/Image.jpg": "1cf669ba1a6bd3e82f4c30b2c59d836a7a50b8111ac822e5424dccedd50578ff",
+      "Test/1007Eval/Data.json": "b50d0cf9e6298bdfc05a5b8ef190e2b8d307b2047eea8ec8f99435bc45a0b130",
+      "Test/1007Eval/Image.jpg": "f06756eb48296e59be1a3326d61dc82e6441a51fb5c57679db14a866888f2934",
+      "Test/1008Eval/Data.json": "bfb3f895ce4821511442ca97ed88a74ed5e32fb4084c50f78bbabe7aee41a49f",
+      "Test/1008Eval/Image.jpg": "6252bb01ca7cb14dc09ac508b1ed659623956911dab68d6eea9214236faae96e",
+      "Test/1009Eval/Data.json": "f63a17b571f5dcb56f1c4eea757e67ea8866bdec8bef6cc91ccf41ccfce77920",
+      "Test/1009Eval/Image.jpg": "1f332f4aea8d30ccc13f17a48c6d3b5adadfbe621e4a3b8df52b68f2bba13373"
+    }
+  },
+  "partial_read": true,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample labpics_chemistry --limit 10"
+}

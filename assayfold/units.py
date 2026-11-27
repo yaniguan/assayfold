@@ -50,7 +50,11 @@ _ALIASES = {
     "{counts}": "{counts}", "counts": "{counts}", "cnt": "{counts}",
     "{arb}": "{arb}", "a.u.": "{arb}", "au": "{arb}", "arb.units": "{arb}",
     "ppm": "[ppm]", "%": "%", "percent": "%", "rpm": "{rpm}", "xg": "{g-force}", "g-force": "{g-force}",
+    "rcf": "{g-force}",
     "log(mol/l)": "[logS]", "logs": "[logS]", "log10(mol/l)": "[logS]", "[logs]": "[logS]",
+    "logd": "[logD]", "logd7.4": "[logD]", "logd(ph7.4)": "[logD]", "[logd]": "[logD]",
+    "ph": "[pH]", "[ph]": "[pH]",
+    "absorbance": "1", "abs": "1",
     "1": "1", "": "1", "unitless": "1", "dimensionless": "1",
 }
 # case-sensitive aliases (checked first): M is molar, m would be metre
@@ -76,6 +80,9 @@ _FACTORS = {
     ("deg", "rad"): math.pi / 180.0, ("rad", "deg"): 180.0 / math.pi,
     ("kHz", "Hz"): 1000.0, ("Hz", "kHz"): 0.001,
     ("s", "ms"): 1000.0, ("ms", "s"): 0.001,
+    ("min", "s"): 60.0, ("s", "min"): 1 / 60.0,
+    ("h", "s"): 3600.0, ("s", "h"): 1 / 3600.0,
+    ("h", "min"): 60.0, ("min", "h"): 1 / 60.0,
     ("W", "mW"): 1000.0, ("mW", "W"): 0.001,
     ("g/L", "mg/L"): 1000.0, ("mg/L", "g/L"): 0.001,
 }
@@ -115,12 +122,46 @@ def parse_quantity(text: str, strict: bool = True):
 
 def convert(value: float, src: str, dst: str) -> float:
     """Convert between a few unit pairs. Raises UnitError for unsupported pairs."""
-    if src == dst:
+    src_code, dst_code = to_code(src), to_code(dst)
+    if src_code == dst_code:
         return value
-    if (src, dst) == ("Cel", "K"):
+    if (src_code, dst_code) == ("Cel", "K"):
         return value + 273.15
-    if (src, dst) == ("K", "Cel"):
+    if (src_code, dst_code) == ("K", "Cel"):
         return value - 273.15
-    if (src, dst) in _FACTORS:
-        return value * _FACTORS[(src, dst)]
+    if (src_code, dst_code) in _FACTORS:
+        return value * _FACTORS[(src_code, dst_code)]
     raise UnitError(f"no conversion {src} -> {dst}")
+
+
+def convert_quantity(q, dst: str):
+    """Return a copy of Quantity `q` converted to canonical unit `dst`, propagating uncertainty."""
+    src_code, dst_code = to_code(q.unit), to_code(dst)
+    if src_code == dst_code:
+        return q.model_copy(deep=True, update={"unit": dst_code, "raw_unit_str": q.raw_unit_str or q.unit})
+    val = convert(q.value, src_code, dst_code) if q.value is not None else None
+    unc = q.uncertainty.model_copy(deep=True) if q.uncertainty is not None else None
+    if unc is not None:
+        if (src_code, dst_code) in (("Cel", "K"), ("K", "Cel")):
+            # Temperature interval width (std) is invariant between Celsius and Kelvin; bounds shift.
+            if unc.low is not None:
+                unc.low = convert(unc.low, src_code, dst_code)
+            if unc.high is not None:
+                unc.high = convert(unc.high, src_code, dst_code)
+        else:
+            factor = _FACTORS[(src_code, dst_code)]
+            if unc.std is not None:
+                unc.std = unc.std * abs(factor)
+            if unc.low is not None:
+                unc.low = unc.low * factor
+            if unc.high is not None:
+                unc.high = unc.high * factor
+    return q.model_copy(
+        deep=True,
+        update={
+            "value": val,
+            "unit": dst_code,
+            "raw_unit_str": q.raw_unit_str or q.unit,
+            "uncertainty": unc,
+        },
+    )

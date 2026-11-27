@@ -3,12 +3,11 @@ name: Transition1x reaction-pathway DFT data
 homepage: https://doi.org/10.1038/s41597-022-01870-w
 license: MIT
 license_url: https://opensource.org/license/mit
-license_evidence: https://huggingface.co/datasets/colabfit/Transition1x-test
+license_evidence: https://api.figshare.com/v2/articles/19614657
 license_quote: >-
-  ColabFit dataset card: "License MIT" and "Original data link
-  https://doi.org/10.6084/m9.figshare.19614657.v4". The figshare page returned HTTP 403 to
-  our network on 2026-11-18; re-check the license there.
-license_checked: "2026-11-18"
+  figshare API metadata for Transition1x article 19614657: license "MIT"
+  (https://opensource.org/licenses/MIT); also confirmed on ColabFit dataset card.
+license_checked: "2026-11-27"
 commercial_use_ok: true
 redistribution_ok: true
 attribution: >-

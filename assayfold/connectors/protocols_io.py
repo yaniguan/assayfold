@@ -18,9 +18,11 @@ API = "https://www.protocols.io/api"
 
 
 def _headers():
-    token = os.environ.get("PROTOCOLS_IO_TOKEN")
+    token = os.environ.get("PROTOCOLS_IO_TOKEN") or os.environ.get("PROTOCOLS_IO_ACCESS_TOKEN")
     if not token:
-        raise RuntimeError("set PROTOCOLS_IO_TOKEN (a protocols.io client access token)")
+        raise RuntimeError(
+            "set PROTOCOLS_IO_TOKEN or PROTOCOLS_IO_ACCESS_TOKEN (a protocols.io client access token)"
+        )
     return {**HEADERS, "Authorization": f"Bearer {token}"}
 
 

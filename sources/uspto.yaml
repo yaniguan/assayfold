@@ -5,7 +5,7 @@ license: CC0-1.0
 license_url: https://creativecommons.org/publicdomain/zero/1.0/
 license_evidence: https://api.figshare.com/v2/articles/5104873
 license_quote: 'figshare metadata for "Chemical reactions from US patents (1976-Sep2016)": license "CC0"'
-license_checked: "2026-11-18"
+license_checked: "2026-11-27"
 commercial_use_ok: true
 redistribution_ok: true
 attribution: >-
@@ -15,9 +15,8 @@ modalities: [reaction]
 kinds: [reaction]
 access: download
 size_full: "grants SMILES 7z 75,191,394 bytes; applications SMILES 7z 87,597,379 bytes (figshare)"
-status: planned
+status: integrated
 notes: >-
-  Connector written but not yet run: figshare downloads returned HTTP 403 to our network on
-  2026-11-18. Run `assayfold sample uspto --limit 25` from a network that can reach figshare,
-  then set status to integrated. A reaction SMILES can carry a trailing fragment-group
-  annotation after a space; the converter drops it.
+  Reads the 1976-Sep 2016 US patent grants SMILES archive (7z) from figshare. A reaction SMILES
+  can carry a trailing fragment-group annotation after a space; the converter drops it. See
+  uspto_lowe for the condition-enriched shard with temperatures and durations.

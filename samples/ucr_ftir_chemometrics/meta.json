@@ -1,0 +1,29 @@
+{
+  "n_records": 10,
+  "quality": {
+    "n_in": 10,
+    "n_out": 10,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-27T22:40:22Z",
+  "dataset": {
+    "id": "qib-ftir-chemometrics",
+    "source_id": "ucr_ftir_chemometrics",
+    "name": "Open FT-IR chemometrics spectra (olive oil, coffee, fresh meat)",
+    "version": "QIBChemometrics main (olive oil, coffee, fresh meat)",
+    "url": "https://github.com/QIBChemometrics/FTIR-food-library",
+    "license": "CC0-1.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-27T22:40:22Z",
+    "files": {
+      "FreshMeatFTIR.csv": "a5d8738fea8c5aa4d8dade7cd731a7f385fb2f5ba7e24b83e0003b607cf7f5ae",
+      "FTIR_Library_Spectra.csv": "eaa4d12e8bd8ec9362d824f6ce9931fe6cd65bd1a4fbaa56e8a9253e3793a1b2",
+      "FTIR_Spectra_olive_oils.csv": "be0ce80e0e8ab74173af7a56df038f7fa5bacf431bd675bc46d0370a9c64bbaf"
+    }
+  },
+  "partial_read": false,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample ucr_ftir_chemometrics --limit 10"
+}

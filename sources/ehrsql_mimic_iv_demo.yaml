@@ -1,0 +1,28 @@
+id: ehrsql_mimic_iv_demo
+name: EHRSQL-2024 clinical lab & EHR SQL benchmark (MIMIC-IV Demo v2.2)
+homepage: https://github.com/glee4810/ehrsql-2024
+license: ODbL-1.0
+license_url: https://opendatacommons.org/licenses/odbl/1-0/
+license_evidence: https://physionet.org/content/mimic-iv-demo/2.2/
+license_quote: >-
+  PhysioNet MIMIC-IV Clinical Database Demo v2.2 is licensed under the Open Data Commons Open
+  Database License v1.0 (ODbL-1.0); EHRSQL-2024 benchmark annotations (github.com/glee4810/ehrsql-2024)
+  are licensed under CC-BY-4.0. Recorded under the stricter ODbL-1.0 ShareAlike database license.
+license_checked: "2026-11-27"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Lee, G. et al. Overview of the EHRSQL 2024 Shared Task on Reliable Text-to-SQL Modeling on
+  Electronic Health Records. ClinicalNLP @ NAACL 2024, doi:10.18653/v1/2024.clinicalnlp-1.61;
+  Johnson, A. et al. MIMIC-IV Clinical Database Demo (version 2.2). PhysioNet (2023),
+  doi:10.13026/dp1f-ex47.
+modalities: [text, clinical_lab, sql, qa]
+kinds: [qa_item]
+access: github
+size_full: "EHRSQL-2024 train/valid/test splits (~10 MB JSON) + MIMIC-IV Demo v2.2 SQLite database (37 MB, 100 patients)"
+status: fetch_only
+notes: >-
+  Abstention-aware clinical laboratory and medication text-to-SQL benchmark over MIMIC-IV Demo
+  v2.2 (labevents, d_labitems, prescriptions, microbiologyevents). All items carry the eval_only
+  tag so training exports and committed samples are strictly blocked, while RAG exports propagate
+  the ODbL-1.0 ShareAlike notice.

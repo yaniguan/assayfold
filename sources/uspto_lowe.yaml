@@ -1,0 +1,24 @@
+id: uspto_lowe
+name: USPTO patent chemical reactions (Lowe / USPTO-50K)
+homepage: https://doi.org/10.6084/m9.figshare.5104873.v1
+license: CC0-1.0
+license_url: https://creativecommons.org/publicdomain/zero/1.0/
+license_evidence: https://api.figshare.com/v2/articles/5104873
+license_quote: 'figshare API metadata for article 5104873 "Chemical reactions from US patents (1976-Sep2016)": license "CC0" (https://creativecommons.org/publicdomain/zero/1.0/)'
+license_checked: "2026-11-27"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Lowe, D. M. Extraction of chemical structures and reactions from the literature. PhD thesis,
+  University of Cambridge (2012); Chemical reactions from US patents (1976-Sep2016), figshare
+  (2017), doi:10.6084/m9.figshare.5104873.v1; Schneider, N. et al., J. Chem. Inf. Model. 56,
+  2336-2346 (2016).
+modalities: [reaction, conditions, yield]
+kinds: [reaction]
+access: huggingface
+size_full: "1.8M text-mined US patent reactions (1976-Sep 2016); 1976 grants shard 11.1 MB (17,855 reactions); USPTO-50K validation shard 182 KB"
+status: integrated
+notes: >-
+  Stoichiometric US patent reactions extracted by D. M. Lowe (CC0-1.0) with reactants, agents,
+  products, experimental yields (%), temperatures (Cel/K), and reaction durations normalized to
+  seconds (s). Also parses Syntheseus / USPTO-50K atom-mapped Parquet and Lowe CML/RSMI files.
