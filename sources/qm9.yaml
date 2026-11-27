@@ -3,12 +3,11 @@ name: QM9 (134k molecules, DFT properties and 3D structures)
 homepage: https://doi.org/10.1038/sdata.2014.22
 license: CC0-1.0
 license_url: https://creativecommons.org/publicdomain/zero/1.0/
-license_evidence: https://jla-gardner.github.io/load-atoms/datasets/QM9.html
+license_evidence: https://api.figshare.com/v2/articles/1057645
 license_quote: >-
-  load-atoms dataset entry for QM9 (files from figshare collection 978904): "This dataset is
-  licensed under the CC0 license." The figshare collection page itself returned HTTP 403 to
-  our network on 2026-11-18, so re-check it at https://figshare.com/collections/_/978904.
-license_checked: "2026-11-18"
+  figshare API metadata for QM9 collection 978904 article 1057645: license "CC0"
+  (https://creativecommons.org/publicdomain/zero/1.0/); also confirmed on load-atoms.
+license_checked: "2026-11-27"
 commercial_use_ok: true
 redistribution_ok: true
 attribution: >-

@@ -19,7 +19,7 @@ access: api
 size_full: "public protocol collection via API; no total stated in the API docs"
 status: planned
 notes: >-
-  The API needs a free client access token (Authorization: Bearer). Set PROTOCOLS_IO_TOKEN,
-  then run `assayfold fetch protocols_io --limit 10`. Not yet run against the live API; the
-  converter is tested on the documented response shape. WLP (also in this hub) is an
-  annotated subset of protocols.io protocols.
+  The live API requires a free client access token (Authorization: Bearer). Set
+  PROTOCOLS_IO_TOKEN or PROTOCOLS_IO_ACCESS_TOKEN, then run `assayfold fetch protocols_io
+  --limit 10`. For tokenless open-access public protocol dumps and BioProt, see
+  protocols_io_open (integrated). WLP (also in this hub) is an annotated subset of protocols.io.

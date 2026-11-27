@@ -13,12 +13,12 @@ attribution: >-
   Savoie, B. M. Comprehensive exploration of graphically defined reaction spaces.
   Scientific Data 10, 145 (2023). doi:10.1038/s41597-023-02043-z
 modalities: [reaction, energy, transition_state, geometry]
-kinds: [reaction]
+kinds: [reaction, structure]
 access: download
 size_full: "DFT_reaction_info.csv 33.4 MB; RGD1_CHNO.h5 1.34 GB; RGD1_RPs.h5 468 MB (figshare file sizes)"
 status: integrated
 notes: >-
   Computed data (origin=simulated), B3LYP-D3/TZVP. Energy columns have no unit in the CSV
-  header; the paper reports activation energies in kcal/mol. The figshare page notes an
-  updated version that fixed swapped forward/reverse barriers for ~24% of reactions.
-  Next step: geometries from RGD1_CHNO.h5 as structure records (reactant, TS, product).
+  header; the paper reports activation energies in kcal/mol. When RGD1_CHNO.h5 is present in
+  the raw folder, convert() also yields reactant, transition_state and product 3D geometries
+  as Structure records linked via parent_id.

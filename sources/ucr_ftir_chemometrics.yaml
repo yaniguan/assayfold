@@ -1,0 +1,24 @@
+id: ucr_ftir_chemometrics
+name: Open FT-IR chemometrics spectra (olive oil, coffee, fresh meat)
+homepage: https://github.com/QIBChemometrics/FTIR-food-library
+license: CC0-1.0
+license_url: https://creativecommons.org/publicdomain/zero/1.0/
+license_evidence: https://raw.githubusercontent.com/QIBChemometrics/FTIR-food-library/main/LICENSE
+license_quote: 'Quadram Institute Bioscience LICENSE across FTIR-food-library, FTIR-Spectra-Olive-Oils, and fresh-meat-ftir: "Creative Commons Legal Code CC0 1.0 Universal"'
+license_checked: "2026-11-27"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Kemsley, E. K., Tapp, H. S., Defernez, M., Al-Jowder, O., Downey, G., Wilson, R. H. Quadram
+  Institute Bioscience (formerly Institute of Food Research, Norwich) Open FT-IR Chemometrics
+  Datasets: Tapp et al., J. Agric. Food Chem. 51, 6110-6115 (2003); Downey et al., J. Agric.
+  Food Chem. 45, 4357-4361 (1997); Al-Jowder et al., Food Chem. 59, 195-201 (1997).
+modalities: [spectrum, ir, ftir, chemometrics]
+kinds: [spectrum]
+access: github
+size_full: "120 olive oil ATR-FTIR spectra (820 KB), 120 fresh meat ATR-FTIR spectra (648 KB), and 46 food/coffee library spectra (4.9 MB)"
+status: integrated
+notes: >-
+  Original open-access Quadram Institute Bioscience FT-IR chemometrics datasets underlying the
+  classic OliveOil, Coffee, and Meat spectral classification benchmarks. Wavenumbers are
+  recorded in /cm (cm^-1) and mid-infrared absorbance in dimensionless absorbance units (1).

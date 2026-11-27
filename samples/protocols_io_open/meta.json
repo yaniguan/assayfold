@@ -1,0 +1,31 @@
+{
+  "n_records": 15,
+  "quality": {
+    "n_in": 15,
+    "n_out": 15,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-27T22:40:20Z",
+  "dataset": {
+    "id": "protocols-io-open",
+    "source_id": "protocols_io_open",
+    "name": "protocols.io open-access protocols & BioProt",
+    "version": "protocolsio/protocols master + BioProt main",
+    "url": "https://github.com/protocolsio/protocols",
+    "license": "CC-BY-4.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-27T22:40:20Z",
+    "files": {
+      "bioprot_10051.json": "4a6cba3f6265ae4a0a9178f39faef6a986f2a0d7f22156a5edb2c8458e12113d",
+      "bioprot_1007.json": "092a3c8b819d5e912e75597539e459d4d827bf13f6d5b80ea3df4532905073e5",
+      "bioprot_10157.json": "009b72e78668946e8d4b98f4ca6a655cadd7c95280785e008b1084a8a1cfb58f",
+      "pio_53314.json": "eb6e49214303fb00ccbd067314fbee9696f05b583414efe4974043442e97b905",
+      "pio_72068.json": "0a9658ea5fbe7353bc33025df523a44f1843248788c0c022b157a7730dc3c58a"
+    }
+  },
+  "partial_read": true,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample protocols_io_open --limit 15"
+}

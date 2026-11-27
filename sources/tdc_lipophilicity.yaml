@@ -1,0 +1,26 @@
+id: tdc_lipophilicity
+name: AstraZeneca ChEMBL3301361 octanol/water lipophilicity (logD7.4)
+homepage: https://doi.org/10.6019/CHEMBL3301361
+license: CC-BY-SA-3.0
+license_url: https://creativecommons.org/licenses/by-sa/3.0/
+license_evidence: https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/LICENSE
+license_quote: >-
+  ChEMBL LICENSE file: "Creative Commons Attribution-ShareAlike 3.0 Unported" covering
+  AstraZeneca experimental DMPK deposition CHEMBL3301361 (doi:10.6019/CHEMBL3301361).
+license_checked: "2026-11-27"
+commercial_use_ok: true
+redistribution_ok: true
+attribution: >-
+  Wenlock, M., Tomkinson, N. Experimental in vitro DMPK and physicochemical data on a set of
+  publicly disclosed compounds. EMBL-EBI ChEMBL (2015), doi:10.6019/CHEMBL3301361; Wu, Z.
+  et al. MoleculeNet: a benchmark for molecular machine learning. Chemical Science 9, 513-530
+  (2018), doi:10.1039/C7SC02664A.
+modalities: [molecule, lipophilicity, property]
+kinds: [molecule]
+access: download
+size_full: "4,200 compounds with experimental shake-flask octanol/buffer logD7.4 (Lipophilicity.csv, 282,606 bytes)"
+status: integrated
+notes: >-
+  Experimental octanol/aqueous buffer distribution coefficients at physiological pH 7.4
+  (logD7.4). Licensed under CC-BY-SA-3.0: commercial use and redistribution are allowed, and
+  the license gate propagates the ShareAlike requirement onto derived dataset cards and notices.

@@ -1,0 +1,28 @@
+{
+  "n_records": 25,
+  "quality": {
+    "n_in": 25,
+    "n_out": 25,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-27T22:41:25Z",
+  "dataset": {
+    "id": "uspto-grants-1976-2016",
+    "source_id": "uspto",
+    "name": "USPTO reactions (Lowe, 1976-Sep 2016)",
+    "version": "figshare doi:10.6084/m9.figshare.5104873.v1",
+    "url": "https://doi.org/10.6084/m9.figshare.5104873.v1",
+    "license": "CC0-1.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-27T22:41:25Z",
+    "files": {
+      "1976_Sep2016_USPTOgrants_smiles.7z": "d10f8ecb013d3f7bc85abdf6a8c5da8a7dd992931c1fda5db14fbd764343bc4e",
+      "1976_Sep2016_USPTOgrants_smiles.rsmi": "5e91117efdb228642647ff26fc5f41b8babf544ca60b2967d76adf243352b626"
+    }
+  },
+  "partial_read": false,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample uspto --limit 25"
+}

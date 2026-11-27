@@ -6,8 +6,8 @@ license of this repository's code. They keep the source license: **MIT**.
 
 - Source: https://doi.org/10.1038/s41597-022-01870-w
 - License: MIT (https://opensource.org/license/mit)
-- License checked at: https://huggingface.co/datasets/colabfit/Transition1x-test on 2026-11-18
-- License statement as found: ColabFit dataset card: "License MIT" and "Original data link https://doi.org/10.6084/m9.figshare.19614657.v4". The figshare page returned HTTP 403 to our network on 2026-11-18; re-check the license there.
+- License checked at: https://api.figshare.com/v2/articles/19614657 on 2026-11-27
+- License statement as found: figshare API metadata for Transition1x article 19614657: license "MIT" (https://opensource.org/licenses/MIT); also confirmed on ColabFit dataset card.
 - Attribution: Schreiner, M., Bhowmik, A., Vegge, T., Busk, J., Winther, O. Transition1x - a dataset for building generalizable reactive machine learning potentials. Scientific Data 9, 779 (2022). doi:10.1038/s41597-022-01870-w ; ColabFit copy doi:10.60732/f26a9f60
 
 Changes made: a subset of records was selected; fields were mapped to the assayfold
@@ -16,7 +16,7 @@ provenance and a record hash were added. See `meta.json` for how the sample was 
 
 ## MIT license of the source data
 
-Copyright line: not recorded here; see https://huggingface.co/datasets/colabfit/Transition1x-test.
+Copyright line: not recorded here; see https://api.figshare.com/v2/articles/19614657.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

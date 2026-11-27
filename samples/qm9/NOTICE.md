@@ -6,8 +6,8 @@ license of this repository's code. They keep the source license: **CC0-1.0**.
 
 - Source: https://doi.org/10.1038/sdata.2014.22
 - License: CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
-- License checked at: https://jla-gardner.github.io/load-atoms/datasets/QM9.html on 2026-11-18
-- License statement as found: load-atoms dataset entry for QM9 (files from figshare collection 978904): "This dataset is licensed under the CC0 license." The figshare collection page itself returned HTTP 403 to our network on 2026-11-18, so re-check it at https://figshare.com/collections/_/978904.
+- License checked at: https://api.figshare.com/v2/articles/1057645 on 2026-11-27
+- License statement as found: figshare API metadata for QM9 collection 978904 article 1057645: license "CC0" (https://creativecommons.org/publicdomain/zero/1.0/); also confirmed on load-atoms.
 - Attribution: Ramakrishnan, R., Dral, P. O., Rupp, M., von Lilienfeld, O. A. Quantum chemistry structures and properties of 134 kilo molecules. Scientific Data 1, 140022 (2014). doi:10.1038/sdata.2014.22
 
 Changes made: a subset of records was selected; fields were mapped to the assayfold

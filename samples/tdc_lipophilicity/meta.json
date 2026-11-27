@@ -1,0 +1,27 @@
+{
+  "n_records": 25,
+  "quality": {
+    "n_in": 25,
+    "n_out": 25,
+    "failed_checks": {},
+    "n_failures": 0
+  },
+  "created_utc": "2026-11-27T22:40:20Z",
+  "dataset": {
+    "id": "chembl3301361-lipophilicity",
+    "source_id": "tdc_lipophilicity",
+    "name": "AstraZeneca ChEMBL3301361 octanol/water lipophilicity (logD7.4)",
+    "version": "ChEMBL3301361 / MoleculeNet Lipophilicity.csv",
+    "url": "https://doi.org/10.6019/CHEMBL3301361",
+    "license": "CC-BY-SA-3.0",
+    "n_records_total": null,
+    "size_bytes_total": null,
+    "fetched_utc": "2026-11-27T22:40:20Z",
+    "files": {
+      "Lipophilicity.csv": "aed41590cb30609d51d8e08ad3ff06495a76e80e211358801f596b10da69bacd"
+    }
+  },
+  "partial_read": false,
+  "converter_skipped_rows": 0,
+  "command": "assayfold sample tdc_lipophilicity --limit 25"
+}
