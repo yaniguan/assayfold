@@ -60,12 +60,19 @@ def row_to_qa(subset: str, row: dict) -> QAItem:
         answer = "; ".join(winners) if winners else None
     elif ex.get("target") is not None:
         answer = str(ex["target"])
+    raw_canary = row.get("canary")
+    canary = (
+        str(raw_canary).strip()
+        if raw_canary is not None and pd.notna(raw_canary) and str(raw_canary).strip()
+        else None
+    )
     return QAItem(
         task=f"chembench/{subset}",
         question=question,
         choices=choices,
         answer=answer,
         context=str(row.get("description") or "") or None,
+        canary=canary,
     )
 
 
@@ -103,6 +110,7 @@ class ChemBench(Connector):
                     origin="real",
                     text=qa.question,
                     tags=["eval_only", "canary:chembench", f"subset:{s}"],
+                    canary=qa.canary,
                     provenance=Provenance(source_url=URL.format(s=s)),
                 )
                 n += 1

@@ -76,11 +76,17 @@ def source_table() -> dict:
     return _SOURCES
 
 
-def allowed(record, purpose: str, sources: dict | None = None) -> tuple[bool, str]:
+def allowed(
+    record,
+    purpose: str,
+    sources: dict | None = None,
+    allow_eval_in_rag: bool = False,
+) -> tuple[bool, str]:
     """License gate checked against sources/<id>.yaml, plus the benchmark rule.
 
     The record's own license string is not trusted: its source_id must be known and its
-    license must equal the source's license. Eval-only records never enter training.
+    license must equal the source's license. Eval-only records never enter training or
+    committed samples, and are blocked for RAG exports unless `allow_eval_in_rag=True`.
     """
     src = (source_table() if sources is None else sources).get(record.source_id)
     if src is None:
@@ -91,6 +97,9 @@ def allowed(record, purpose: str, sources: dict | None = None) -> tuple[bool, st
         return False, f"non-commercial source or record; blocked for {purpose}"
     if purpose == "redistribute_sample" and not src.redistribution_ok:
         return False, "source does not allow redistribution"
-    if (purpose.startswith("train") or purpose == "redistribute_sample") and EVAL_ONLY_TAG in record.tags:
-        return False, "benchmark item (eval_only): keep out of training corpora and committed samples"
+    if EVAL_ONLY_TAG in record.tags:
+        if purpose.startswith("train") or purpose == "redistribute_sample":
+            return False, "benchmark item (eval_only): keep out of training corpora and committed samples"
+        if purpose in ("rag", "rag_research") and not allow_eval_in_rag:
+            return False, "benchmark item (eval_only): blocked for RAG exports unless --allow-eval-in-rag is set"
     return gate(record.license, purpose)

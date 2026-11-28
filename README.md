@@ -38,8 +38,9 @@ assayfold list                      # sources, licenses and status
 assayfold fetch freesolv            # raw files go to data/raw/ (never committed)
 assayfold convert freesolv          # -> data/unified/freesolv.jsonl
 assayfold check data/unified/freesolv.jsonl
-assayfold export data/unified/*.jsonl --format parquet --purpose train_commercial --out out/train.parquet
+assayfold export data/unified/*.jsonl --format parquet --purpose train_commercial --dedup global --out out/train.parquet
 assayfold export data/unified/*.jsonl --format rag --out out/rag.jsonl
+assayfold scan-contamination out/rag.jsonl --eval data/unified/chembench.jsonl
 ```
 
 Each export writes a dataset card (`<file>.card.json`) with record counts per source and
@@ -95,24 +96,45 @@ last line at EOF is allowed, other dropped rows are counted.
 
 - **Schema validation**: pydantic models with `extra="forbid"`; the JSON Schema is in [schema/](schema).
 - **Unit normalization**: raw unit strings map to UCUM-style codes (`uL`, `Cel`, `K`,
-  `kcal/mol`, `kJ/mol`, `Ao`, `[Eh]` for Hartree, `[logS]`, `[logD]`, `[pH]`, `mS/cm` for
-  electrolyte conductivity, `deg` for 2-theta diffraction angles, `/cm` for `cm^-1` IR/Raman
-  wavenumber, `[m/z]` and `g/mol` for `Da` in mass spectrometry, `mol/kg`, `g/L`, `Hz`, `s`);
+  `kcal/mol`, `kJ/mol`, `Ao`, `[Eh]` for Hartree, `[logS]`, `[logD]`, `[pH]`, `mS/cm` and
+  `mS` for conductivity/conductance vs `ms` for milliseconds, `[U]` for enzyme units vs `u`
+  and `Da` -> `g/mol` for atomic mass, `mHz` vs `MHz`, `d` for days vs `D` -> `[D]` for Debye,
+  `deg` for 2-theta diffraction angles, `/cm` for `cm^-1` IR/Raman wavenumber, `[m/z]`,
+  `mol/kg`, `g/L`, `Hz`, `s`) with case-sensitive SI/UCUM symbol lookup before lowercasing;
   the original string is kept in `raw_unit_str`; unknown units fail (including
-  `Spectrum.x_unit` and `Spectrum.y_unit`).
-- **Chemistry and spectral sanity**: SMILES parse (RDKit when installed), finite coordinates,
-  atom/coordinate counts, finite matched-length `Spectrum` arrays.
-- **Dedup**: by content hash, and by canonical SMILES for molecules within a source.
-- **Integrity**: `record_hash` is checked on the record as loaded, before unit normalization
-  reseals it.
-- **License gate**: each record's `source_id` must exist in `sources/<id>.yaml`, and its
-  license must match that source file. The per-record license string alone is not trusted.
-  Non-commercial data (`CC-BY-NC-4.0`, `CC-BY-NC-SA-4.0`, `LicenseRef-FineBio-NC`) is blocked
-  for `train_commercial`, `rag` (an index that may serve a commercial product), and committed
-  samples. It is allowed for `train_research` and `rag_research`, with research-use-only (and
-  share-alike, where applicable) notes. Benchmark items (`eval_only` tag, e.g. LAB-Bench,
-  ChemBench, BioProBench, EHRSQL-2024 / MIMIC-IV Demo, and held-out test folds) never enter a
-  training export or sample.
+  `Spectrum.x_unit`, `Spectrum.y_unit`, and `Structure.forces_unit`).
+- **Chemistry, structure, and spectral sanity**: SMILES parse (RDKit when installed, bracket
+  and charset check otherwise), 118 IUPAC periodic-table element symbols on `Structure.elements`,
+  matched `elements` and `coords_angstrom` counts (3 finite values per atom), matched
+  `Structure.forces` row/vector counts (3 finite values per atom) with a known `forces_unit`
+  whenever `forces` is set, and finite matched-length `Spectrum` `x`/`y` arrays.
+- **Dedup**: content-level keys per kind, independent of `record_id`, `native_id`, and
+  provenance (`molecule`: canonical SMILES; `reaction`: canonical sorted reactants, agents,
+  and products with atom-mapping stripped plus normalized conditions and properties;
+  `spectrum`: technique, canonical units, and sha256 of rounded `x`/`y` arrays; `structure`:
+  elements and coordinates rounded to `1e-4` Angstrom; `qa_item`: normalized question and
+  sorted choices; `protocol_step`: step index within a protocol and normalized text;
+  `image`/`trajectory`: blob sha256; `observation`/`protocol`/`experiment`: normalized content
+  fields). `--dedup source` (default) deduplicates within each source; `--dedup global`
+  deduplicates across sources, keeping the first record ordered by
+  `(source_id, dataset_id, native_id, record_id)` and recording cross-source pairs in
+  `duplicates_by_source_pair` in the dataset card.
+- **Integrity**: missing `record_hash` fails as `unsealed` unless `--allow-unsealed` is
+  explicitly passed; non-empty `record_hash` is verified against `content_hash()` on the
+  record as loaded before unit normalization reseals it.
+- **License and contamination gate**: each record's `source_id` must exist in
+  `sources/<id>.yaml`, and its license must match that source file. The per-record license
+  string alone is not trusted. Non-commercial data (`CC-BY-NC-4.0`, `CC-BY-NC-SA-4.0`,
+  `LicenseRef-FineBio-NC`) is blocked for `train_commercial`, `rag` (an index that may serve
+  a commercial product), and committed samples. It is allowed for `train_research` and
+  `rag_research`, with research-use-only (and share-alike, where applicable) notes. Benchmark
+  items (`eval_only` tag, e.g. LAB-Bench, ChemBench, BioProBench, EHRSQL-2024 / MIMIC-IV Demo,
+  and held-out test folds) never enter a training export or sample, and are also blocked from
+  `rag` and `rag_research` exports by default unless `--allow-eval-in-rag` is passed (which
+  records `contains_eval_items: true` and `n_eval_items` in the card). Benchmark `canary`
+  strings from source rows are preserved on `Record.canary` / `QAItem.canary` into every
+  export line, and `assayfold scan-contamination <export> --eval <eval.jsonl>` checks exports
+  for normalized benchmark questions or canaries.
 
 ## License policy
 

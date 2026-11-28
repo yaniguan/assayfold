@@ -56,3 +56,4 @@ def test_lab_bench_records_are_eval_only(tmp_path):
                  ).to_parquet(tmp_path / "ProtocolQA.parquet")
     rec = next(get("lab_bench").convert(tmp_path))
     assert "eval_only" in rec.tags and rec.payload.choices == ["A", "B", "C"]
+    assert rec.canary == "c" and rec.payload.canary == "c"

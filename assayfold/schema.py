@@ -120,6 +120,23 @@ class Molecule(_Model):
     formula: Optional[str] = None
 
 
+ELEMENTS: tuple[str, ...] = (
+    "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne",
+    "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca",
+    "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn",
+    "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb", "Sr", "Y", "Zr",
+    "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn",
+    "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd",
+    "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb",
+    "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg",
+    "Tl", "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Th",
+    "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm",
+    "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds",
+    "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og",
+)
+ELEMENT_SET: frozenset[str] = frozenset(ELEMENTS)
+
+
 class Structure(_Model):
     kind: Literal["structure"] = "structure"
     elements: list[str]
@@ -137,6 +154,13 @@ class Structure(_Model):
             raise ValueError("elements and coords_angstrom differ in length")
         if any(len(c) != 3 for c in self.coords_angstrom):
             raise ValueError("each coordinate needs 3 values")
+        if self.forces is not None:
+            if len(self.forces) != len(self.elements):
+                raise ValueError("elements and forces differ in length")
+            if any(len(f) != 3 for f in self.forces):
+                raise ValueError("each force vector needs 3 values")
+            if not self.forces_unit:
+                raise ValueError("forces_unit is required when forces is set")
         return self
 
 
@@ -212,6 +236,7 @@ class QAItem(_Model):
     choices: list[str] = []
     answer: Optional[str] = None
     context: Optional[str] = None
+    canary: Optional[str] = None
 
 
 Payload = Annotated[
@@ -245,6 +270,7 @@ class Record(_Model):
     origin: Literal["real", "simulated", "model_generated", "synthetic_demo"]
     provenance: Provenance = Field(default_factory=Provenance)
     tags: list[str] = []
+    canary: Optional[str] = None
     schema_version: str = SCHEMA_VERSION
     record_hash: Optional[str] = None
 
@@ -252,12 +278,21 @@ class Record(_Model):
     def _kind_matches(self):
         if self.kind != self.payload.kind:
             raise ValueError(f"kind {self.kind!r} != payload kind {self.payload.kind!r}")
+        if isinstance(self.payload, QAItem):
+            if self.canary and not self.payload.canary:
+                self.payload.canary = self.canary
+            elif self.payload.canary and not self.canary:
+                self.canary = self.payload.canary
         return self
 
     def content_hash(self) -> str:
-        """sha256 over the canonical content. Excludes record_hash and recorded_utc."""
+        """sha256 over the canonical content. Excludes record_hash, recorded_utc, and unset canary."""
         d = self.model_dump(mode="json", exclude={"record_hash"})
         d["provenance"].pop("recorded_utc", None)
+        if d.get("canary") is None:
+            d.pop("canary", None)
+        if isinstance(d.get("payload"), dict) and d["payload"].get("canary") is None:
+            d["payload"].pop("canary", None)
         return sha256_hex(canonical_json(d))
 
     def sealed(self) -> "Record":

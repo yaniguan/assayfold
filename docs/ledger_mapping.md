@@ -26,7 +26,7 @@ changes, this file and `assayfold/schema.py` change with it.
 | kind `protocol_step` | `ProtocolStep` | `index`, `text`, `action`, `params` |
 | kind `observation` | `Observation` | A single measured property |
 | kinds `molecule`, `structure`, `reaction`, `spectrum`, `image`, `trajectory` | `Observation` (modality) or a blob | The ledger stores these as an Observation modality or a raw blob |
-| kind `qa_item` | (none) | Evaluation data only; tagged `eval_only` so it never becomes training data |
+| kind `qa_item` | (none) | Evaluation data only; carries `canary` when provided and tagged `eval_only` so it is excluded from training and default RAG exports |
 
 Not mapped: the ledger's `Action`, `GateDecision`, `CheckerResult`, `SimComparison`,
 `Anomaly` and `SignOff` record our own runs. Open datasets rarely publish them; when they

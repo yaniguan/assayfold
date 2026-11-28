@@ -30,12 +30,20 @@ class LabBench(Connector):
                     return
                 distractors = row.get("distractors")
                 choices = [row["ideal"], *(list(distractors) if distractors is not None else [])]
+                raw_canary = row.get("canary")
+                canary = (
+                    str(raw_canary).strip()
+                    if raw_canary is not None and pd.notna(raw_canary) and str(raw_canary).strip()
+                    else None
+                )
                 yield new_record(
                     self.source_id, f"{self.dataset_id}/{s}", row["id"],
                     QAItem(task=f"lab-bench/{s}", question=row["question"], choices=choices,
-                           answer=row["ideal"], context=row.get("protocol") or None),
+                           answer=row["ideal"], context=row.get("protocol") or None,
+                           canary=canary),
                     license=self.source.license, origin="real",
                     text=row["question"], tags=["eval_only", "canary:lab-bench"],
+                    canary=canary,
                     provenance=Provenance(source_url=URL.format(s=s)))
                 n += 1
 

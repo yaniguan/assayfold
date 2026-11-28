@@ -49,9 +49,12 @@ class BioProBench(Connector):
                 if limit is not None and n >= limit:
                     return
                 qa = to_qa(task, x)
+                canary = str(x.get("canary") or "").strip() or None
+                if canary:
+                    qa.canary = canary
                 yield new_record(self.source_id, f"{self.dataset_id}/{task}", x["id"], qa,
                                  license=self.source.license, origin="real", text=qa.question,
-                                 tags=["eval_only", "non_commercial"],
+                                 tags=["eval_only", "non_commercial"], canary=canary,
                                  provenance=Provenance(source_url=URL.format(f=f)))
                 n += 1
 
