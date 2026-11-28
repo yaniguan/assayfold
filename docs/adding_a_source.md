@@ -19,8 +19,10 @@
    files compact (`< 1 MB`) and SHA-256 sealed (`record_hash` + `meta.json` input file
    hashes). Share-alike sources (`CC-BY-SA-3.0`, `CC-BY-SA-4.0`, `ODbL-1.0`) propagate
    their share-alike notice into `NOTICE.md` and export dataset cards. Benchmarks (such as
-   `lab_bench`, `chembench`, `bioprobench`, and `ehrsql_mimic_iv_demo`) stay `fetch_only`
-   and their records get the `eval_only` tag so they never enter training exports.
+   `lab_bench`, `chembench`, `bioprobench`, and `ehrsql_mimic_iv_demo`) stay `fetch_only`,
+   preserve any upstream `canary` string on `Record.canary` / `QAItem.canary`, and get the
+   `eval_only` tag so they never enter training exports, committed samples, or default RAG
+   exports.
 6. **Test and catalog.** Add offline parser and license-gate tests in `tests/` (for example
    `tests/test_connectors_offline.py` or `tests/test_issue1_and_2026_expansion.py`), then
    run `assayfold catalog`, `assayfold schema`, and `pytest -q`. `tests/test_samples.py`

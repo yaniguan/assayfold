@@ -250,7 +250,7 @@ def test_sharealike_odbl_and_eval_only_export_gates(tmp_path):
     assert ehr_recs[1].payload.answer == "ABSTAIN"
     assert "answerable:false" in ehr_recs[1].tags
 
-    for blocked_purpose in ("train_research", "train_commercial", "redistribute_sample"):
+    for blocked_purpose in ("train_research", "train_commercial", "redistribute_sample", "rag", "rag_research"):
         ok_gate, reason = licenses.allowed(ehr_recs[0], blocked_purpose)
         assert not ok_gate and "eval_only" in reason
 
@@ -262,8 +262,17 @@ def test_sharealike_odbl_and_eval_only_export_gates(tmp_path):
     assert comm_card["n_records"] == 0
     assert comm_card["blocked"]
 
-    rag_card = export_rag_chunks(ehr_recs, tmp_path / "rag.jsonl", purpose="rag_research")
+    rag_blocked_card = export_rag_chunks(ehr_recs, tmp_path / "rag_blocked.jsonl", purpose="rag_research")
+    assert rag_blocked_card["n_records"] == 0
+    assert rag_blocked_card["contains_eval_items"] is False
+    assert rag_blocked_card["blocked"]
+
+    rag_card = export_rag_chunks(
+        ehr_recs, tmp_path / "rag.jsonl", purpose="rag_research", allow_eval_in_rag=True
+    )
     assert rag_card["n_records"] == 2
+    assert rag_card["contains_eval_items"] is True
+    assert rag_card["n_eval_items"] == 2
     assert "share-alike" in rag_card["license_notes"]["ehrsql_mimic_iv_demo"]
 
 

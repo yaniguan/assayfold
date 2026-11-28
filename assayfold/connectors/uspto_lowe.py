@@ -153,10 +153,7 @@ def decode_ord_reaction_pb(blob: bytes) -> dict:
                     rval, renum = _parse_scalar_unit(ov)
                     if rval is not None and renum in TIME_ENUM:
                         u_code, u_raw = TIME_ENUM[renum]
-                        if u_code == "d":
-                            sec_val = round(rval * 86400.0, 2)
-                        else:
-                            sec_val = round(units.convert(rval, u_code, "s"), 2)
+                        sec_val = round(units.convert(rval, u_code, "s"), 2)
                         time_q = Quantity(value=sec_val, unit="s", raw_unit_str=u_raw)
                 elif ofn == 3 and owt == 2:  # ProductCompound
                     psmi = None
@@ -230,7 +227,7 @@ def parse_cml_reactions(xml_path: Path):
                             temp_q = Quantity(value=val, unit=u_code, raw_unit_str=u_raw or u_code)
                         elif "time" in dref:
                             u_code = units.to_code(u_raw or "s", strict=False)
-                            if u_code in ("s", "min", "h"):
+                            if u_code in ("s", "min", "h", "d"):
                                 sec = round(units.convert(val, u_code, "s"), 2)
                                 time_q = Quantity(value=sec, unit="s", raw_unit_str=u_raw or "s")
         for role_tag, bucket in (

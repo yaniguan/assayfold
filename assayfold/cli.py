@@ -1,4 +1,4 @@
-"""Command line: assayfold list|fetch|convert|sample|check|export|catalog|schema."""
+"""Command line: assayfold list|fetch|convert|sample|check|export|scan-contamination|catalog|schema."""
 
 import argparse
 import json
@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 from . import catalog, connectors, licenses, notice, quality
-from .export import export_jsonl, export_parquet, export_rag_chunks
+from .export import export_jsonl, export_parquet, export_rag_chunks, scan_contamination
 from .io import read_jsonl, write_jsonl
 from .schema import Dataset, export_json_schema, utc_now
 
@@ -58,12 +58,32 @@ def cmd_sample(a):
 
 def cmd_check(a):
     bad = 0
-    for path in a.files:
-        kept, rep = quality.run_all(read_jsonl(path, as_dict=True), purpose=a.purpose)
-        print(path, json.dumps(rep.summary()))
+    if a.dedup == "global" and len(a.files) > 1:
+        recs = [r for p in a.files for r in read_jsonl(p, as_dict=True)]
+        _, rep = quality.run_all(
+            recs,
+            purpose=a.purpose,
+            scope=a.dedup,
+            allow_eval_in_rag=a.allow_eval_in_rag,
+            allow_unsealed=a.allow_unsealed,
+        )
+        print(" ".join(a.files), json.dumps(rep.summary()))
         for f in rep.failures[:20]:
             print("  ", *f)
         bad += len(rep.failures)
+    else:
+        for path in a.files:
+            _, rep = quality.run_all(
+                read_jsonl(path, as_dict=True),
+                purpose=a.purpose,
+                scope=a.dedup,
+                allow_eval_in_rag=a.allow_eval_in_rag,
+                allow_unsealed=a.allow_unsealed,
+            )
+            print(path, json.dumps(rep.summary()))
+            for f in rep.failures[:20]:
+                print("  ", *f)
+            bad += len(rep.failures)
     sys.exit(1 if bad and a.strict else 0)
 
 
@@ -72,10 +92,23 @@ def cmd_export(a):
     recs = [r for p in a.files for r in read_jsonl(p, as_dict=True)]
     purpose = a.purpose or ("rag" if a.format == "rag" else "train_research")
     homepages = {s.id: s.homepage for s in catalog.load_sources()}
-    fn = {"jsonl": export_jsonl, "parquet": export_parquet}.get(a.format)
-    card = (export_rag_chunks(recs, a.out, purpose, homepages) if a.format == "rag"
-            else fn(recs, a.out, purpose))
+    kw = {
+        "scope": a.dedup,
+        "allow_eval_in_rag": a.allow_eval_in_rag,
+        "allow_unsealed": a.allow_unsealed,
+    }
+    if a.format == "rag":
+        card = export_rag_chunks(recs, a.out, purpose, homepages, **kw)
+    else:
+        fn = {"jsonl": export_jsonl, "parquet": export_parquet}[a.format]
+        card = fn(recs, a.out, purpose, **kw)
     print(json.dumps(card, indent=2))
+
+
+def cmd_scan_contamination(a):
+    res = scan_contamination(a.export, a.eval)
+    print(json.dumps(res, indent=2))
+    sys.exit(1 if res["contaminated"] else 0)
 
 
 def cmd_catalog(a):
@@ -106,6 +139,9 @@ def main(argv=None):
     p = sub.add_parser("check")
     p.add_argument("files", nargs="+")
     p.add_argument("--purpose", default="train_research", choices=licenses.PURPOSES)
+    p.add_argument("--dedup", default="source", choices=quality.DEDUP_SCOPES)
+    p.add_argument("--allow-eval-in-rag", action="store_true")
+    p.add_argument("--allow-unsealed", action="store_true")
     p.add_argument("--strict", action="store_true")
     p.set_defaults(fn=cmd_check)
     p = sub.add_parser("export")
@@ -113,8 +149,15 @@ def main(argv=None):
     p.add_argument("--format", choices=["jsonl", "parquet", "rag"], default="jsonl")
     p.add_argument("--purpose", choices=licenses.PURPOSES,
                    help="default: rag for --format rag, otherwise train_research")
+    p.add_argument("--dedup", default="source", choices=quality.DEDUP_SCOPES)
+    p.add_argument("--allow-eval-in-rag", action="store_true")
+    p.add_argument("--allow-unsealed", action="store_true")
     p.add_argument("--out", required=True)
     p.set_defaults(fn=cmd_export)
+    p = sub.add_parser("scan-contamination")
+    p.add_argument("export")
+    p.add_argument("--eval", action="append", required=True, help="eval JSONL file(s) to scan for")
+    p.set_defaults(fn=cmd_scan_contamination)
     p = sub.add_parser("catalog")
     p.add_argument("--check", action="store_true")
     p.set_defaults(fn=cmd_catalog)

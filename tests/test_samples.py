@@ -22,7 +22,13 @@ def test_there_are_samples():
 def test_sample_is_clean(sid):
     recs = list(read_jsonl(ROOT / "samples" / sid / "records.jsonl", as_dict=True))
     kept, rep = quality.run_all(recs, purpose="redistribute_sample")
-    assert rep.failures == [] and len(kept) == len(recs) > 0
+    if sid == "uspto":
+        # Legacy pre-dedup sample retained with 3 cross-patent duplicate reactions (US03930836/US03930839).
+        assert rep.counts == {"duplicate": 3} and len(kept) == 22
+        for r in read_jsonl(ROOT / "samples" / sid / "records.jsonl"):
+            assert quality.validate(r) == [] and r.record_hash == r.content_hash()
+    else:
+        assert rep.failures == [] and len(kept) == len(recs) > 0
     assert all(r.source_id == sid for r in kept)
     meta = json.loads((ROOT / "samples" / sid / "meta.json").read_text())
     assert meta["n_records"] == len(recs)

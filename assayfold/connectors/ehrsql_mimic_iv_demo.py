@@ -1,8 +1,8 @@
 """EHRSQL-2024 clinical lab & EHR text-to-SQL benchmark over MIMIC-IV Demo v2.2. ODbL-1.0.
 
-Evaluation-only benchmark (`eval_only` tag on every record): training exports and committed
-samples are strictly blocked by the license gate, while retrieval exports propagate the
-ODbL-1.0 ShareAlike obligation.
+Evaluation-only benchmark (`eval_only` tag on every record): training exports, committed
+samples, and RAG exports are blocked by default by the license gate (unless `--allow-eval-in-rag`
+is explicitly passed for RAG, which also propagates the ODbL-1.0 ShareAlike obligation).
 """
 
 from __future__ import annotations
@@ -44,7 +44,8 @@ def _iter_split_items(data_obj, labels_obj: dict):
         sql = row.get("query")
         if sql is None and qid in labels_obj:
             sql = labels_obj[qid]
-        yield qid, question, sql
+        canary = str(row.get("canary") or "").strip() or None
+        yield qid, question, sql, canary
 
 
 class EHRSQLMimicIVDemo(Connector):
@@ -75,7 +76,7 @@ class EHRSQLMimicIVDemo(Connector):
         n = 0
         for p in data_files:
             raw = json.loads(p.read_text(encoding="utf-8"))
-            for qid, question, sql in _iter_split_items(raw, labels):
+            for qid, question, sql, canary in _iter_split_items(raw, labels):
                 if not question:
                     continue
                 if limit is not None and n >= limit:
@@ -97,11 +98,13 @@ class EHRSQLMimicIVDemo(Connector):
                         question=question,
                         answer=answer,
                         context=ctx,
+                        canary=canary,
                     ),
                     license=self.source.license,
                     origin="real",
                     text=question,
                     tags=tags,
+                    canary=canary,
                     provenance=Provenance(source_url=self.dataset_url),
                 )
                 n += 1

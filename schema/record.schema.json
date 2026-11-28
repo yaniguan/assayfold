@@ -485,6 +485,18 @@
           "default": null,
           "title": "Answer"
         },
+        "canary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Canary"
+        },
         "choices": {
           "default": [],
           "items": {
@@ -960,6 +972,18 @@
       },
       "title": "Blobs",
       "type": "array"
+    },
+    "canary": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Canary"
     },
     "dataset_id": {
       "title": "Dataset Id",
